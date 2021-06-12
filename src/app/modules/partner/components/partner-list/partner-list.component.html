@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col" [formGroup]="searchForm">
+    <input type="text" class="form-control" vtcPlaceholderCaption="search" formControlName="search"/>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <vtc-table [config]="paginationConfig" [trackBy]="trackByFn" #table>
+      <ng-container cdkColumnDef="displayName">
+        <th cdk-header-cell *cdkHeaderCellDef>
+          <vtc-caption value="displayName" view="PARTNER"></vtc-caption>
+        </th>
+        <td cdk-cell *cdkCellDef="let element">{{element.displayName}}</td>
+      </ng-container>
+      <ng-container cdkColumnDef="partnerType">
+        <th cdk-header-cell *cdkHeaderCellDef>
+          <vtc-caption value="partnerType" view="PARTNER"></vtc-caption>
+        </th>
+        <td cdk-cell *cdkCellDef="let element">
+          <vtc-caption [value]="element.partnerType" view="PARTNER_TYPE"></vtc-caption>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="email">
+        <th cdk-header-cell *cdkHeaderCellDef>
+          <vtc-caption value="email" view="PARTNER"></vtc-caption>
+        </th>
+        <td cdk-cell *cdkCellDef="let element">{{element.email}}</td>
+      </ng-container>
+      <ng-container cdkColumnDef="city">
+        <th cdk-header-cell *cdkHeaderCellDef>
+          <vtc-caption value="city" view="PARTNER"></vtc-caption>
+        </th>
+        <td cdk-cell *cdkCellDef="let element">{{element.city}}</td>
+      </ng-container>
+      <ng-container cdkColumnDef="address">
+        <th cdk-header-cell *cdkHeaderCellDef>
+          <vtc-caption value="address" view="PARTNER"></vtc-caption>
+        </th>
+        <td cdk-cell *cdkCellDef="let element">{{element.address}}</td>
+      </ng-container>
+    </vtc-table>
+  </div>
+</div>

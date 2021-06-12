@@ -1,0 +1,16 @@
+{
+  "CAPTIONS": {
+    "search": "Поиск"
+  },
+  "PARTNER": {
+    "displayName": "Имя",
+    "partnerType": "Тип",
+    "email": "E-mail",
+    "city": "Город",
+    "address": "Адрес"
+  },
+  "PARTNER_TYPE": {
+    "naturalPerson": "Физ. Лицо",
+    "legalEntity": "Юр. Лицо"
+  }
+}

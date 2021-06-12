@@ -1,0 +1,641 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Partners Api Test",
+    "description": "Api for experiments",
+    "version": "0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "PartnerHeaderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "partnerType": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "displayName",
+          "partnerType",
+          "city",
+          "address",
+          "email"
+        ]
+      },
+      "PageDataDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total": {
+            "type": "number"
+          },
+          "pageSize": {
+            "type": "number"
+          },
+          "pageNum": {
+            "type": "number"
+          },
+          "pagesCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "data",
+          "total",
+          "pageSize",
+          "pageNum",
+          "pagesCount"
+        ]
+      },
+      "ErrorInfoDto": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "children": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ErrorInfoDto"
+            },
+            "example": {
+              "children": {
+                "firstName": {
+                  "errors": [
+                    "required"
+                  ]
+                },
+                "lastName": {
+                  "errors": [
+                    "required"
+                  ]
+                },
+                "address": {
+                  "children": {
+                    "city": {
+                      "errors": [
+                        "required"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "errors",
+          "children"
+        ]
+      },
+      "AddressDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "idx": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "city",
+          "street",
+          "houseNumber",
+          "idx"
+        ]
+      },
+      "ContactDto": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone",
+          "email"
+        ]
+      },
+      "PersonalDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "middleName",
+          "birthDate",
+          "gender"
+        ]
+      },
+      "CompanyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "foundationYear": {
+            "type": "number"
+          },
+          "numEmployees": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "foundationYear",
+          "numEmployees"
+        ]
+      },
+      "PartnerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "addressInfo": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactDto"
+          },
+          "partnerType": {
+            "type": "string",
+            "enum": [
+              "naturalPerson",
+              "legalEntity"
+            ]
+          },
+          "personalInfo": {
+            "$ref": "#/components/schemas/PersonalDto"
+          },
+          "companyInfo": {
+            "$ref": "#/components/schemas/CompanyDto"
+          }
+        },
+        "required": [
+          "id",
+          "addressInfo",
+          "contactInfo",
+          "partnerType",
+          "personalInfo",
+          "companyInfo"
+        ]
+      },
+      "IdentifyDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/partner/search": {
+      "get": {
+        "operationId": "PartnerController_search",
+        "parameters": [
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageNum",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/PartnerHeaderDto"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageDataDto"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "INTERNAL_ERROR"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "partner"
+        ]
+      }
+    },
+    "/partner/{partnerId}": {
+      "get": {
+        "operationId": "PartnerController_getPartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "PARTNER_NOT_FOUND"
+                          ]
+                        },
+                        "params": {
+                          "$ref": "#/components/schemas/IdentifyDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "INTERNAL_ERROR"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "partner"
+        ]
+      },
+      "put": {
+        "operationId": "PartnerController_updatePartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "VALIDATION_ERROR"
+                          ]
+                        },
+                        "params": {
+                          "$ref": "#/components/schemas/ErrorInfoDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "PARTNER_NOT_FOUND"
+                          ]
+                        },
+                        "params": {
+                          "$ref": "#/components/schemas/IdentifyDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "INTERNAL_ERROR"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "partner"
+        ]
+      },
+      "delete": {
+        "operationId": "PartnerController_removePartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "PARTNER_NOT_FOUND"
+                          ]
+                        },
+                        "params": {
+                          "$ref": "#/components/schemas/IdentifyDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "INTERNAL_ERROR"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "partner"
+        ]
+      }
+    },
+    "/partner": {
+      "post": {
+        "operationId": "PartnerController_addPartner",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentifyDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "VALIDATION_ERROR"
+                          ]
+                        },
+                        "params": {
+                          "$ref": "#/components/schemas/ErrorInfoDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "INTERNAL_ERROR"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "partner"
+        ]
+      }
+    }
+  }
+}

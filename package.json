@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate-api:remove": "rimraf ./src/app/modules/api",
+    "generate-api:build": "ng-openapi-gen --input api-json.json --output ./src/app/modules/api",
+    "generate-api": "yarn run generate-api:remove && yarn run generate-api:build"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +23,17 @@
     "@angular/router": "~12.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@vt/core": "0.0.1",
+    "@angular/cdk": "^12.0.3",
+    "@ngx-translate/core": "^13.0.0",
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "bootstrap": "5.0.1",
+    "date-fns": "^2.19.0",
+    "imask": "^6.0.7",
+    "uuid": "^8.3.2",
+    "rimraf": "^3.0.2",
+    "@ngxs/store": "^3.7.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.3",
@@ -34,6 +47,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "typescript": "~4.2.3"
+    "typescript": "~4.2.3",
+    "ng-openapi-gen": "^0.17.0"
   }
 }
