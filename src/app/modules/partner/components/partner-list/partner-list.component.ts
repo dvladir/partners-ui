@@ -7,6 +7,7 @@ import {SearchPartners} from '../../store/parnter.actions';
 import {PartnerState} from '../../store/partner.state';
 import {debounceTime, distinctUntilChanged, takeUntil} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {NavigationService} from '../../../base/services/navigation.service';
 
 @Component({
   selector: 'app-partner-list',
@@ -17,7 +18,8 @@ export class PartnerListComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _store: Store,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _nav: NavigationService
   ) { }
 
   private _terminator$: Subject<unknown> = new Subject<unknown>();
@@ -45,6 +47,10 @@ export class PartnerListComponent implements AfterViewInit, OnDestroy {
       }
       return this.partnerList$!;
     }
+  }
+
+  editPartner(partner: PartnerHeaderDto): void {
+    this._nav.editPartner(partner.id);
   }
 
   ngAfterViewInit(): void {

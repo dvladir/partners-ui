@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { PartnerListComponent } from './components/partner-list/partner-list.component';
-import {CoreModule} from '@vt/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DummyComponent } from './components/dummy/dummy.component';
+import { PartnerEditorComponent } from './components/partner-editor/partner-editor.component';
+import {BaseModule} from '../base/base.module';
 
 
 @NgModule({
   declarations: [
     PartnerListComponent,
-    DummyComponent
+    DummyComponent,
+    PartnerEditorComponent
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CoreModule,
+    BaseModule
   ],
   exports: [
     PartnerListComponent,

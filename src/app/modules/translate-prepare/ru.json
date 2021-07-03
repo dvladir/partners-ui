@@ -7,7 +7,23 @@
     "partnerType": "Тип",
     "email": "E-mail",
     "city": "Город",
-    "address": "Адрес"
+    "address": "Адрес",
+    "companyName": "Название организации",
+    "foundationYear": "Год основания",
+    "numEmployees": "Кол-во сотрудников",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "middleName": "Отчество",
+    "birthDate": "Дата рождения",
+    "gender": "Пол",
+    "houseNumber": "Номер дома",
+    "idx": "Почтовый индекс",
+    "street": "Улица",
+    "phone": "Телефон"
+  },
+  "GENDER": {
+    "male": "Мужчина",
+    "female": "Женщина"
   },
   "PARTNER_TYPE": {
     "naturalPerson": "Физ. Лицо",

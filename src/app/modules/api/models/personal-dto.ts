@@ -3,7 +3,7 @@
 export interface PersonalDto {
   birthDate: string;
   firstName: string;
-  gender: string;
+  gender: 'male' | 'female';
   lastName: string;
   middleName: string;
 }

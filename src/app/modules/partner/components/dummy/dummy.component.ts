@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-dummy',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DummyComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    const g = this.formBuilder.group({});
+  }
 
   ngOnInit(): void {
   }

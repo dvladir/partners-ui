@@ -1,0 +1,81 @@
+<ng-container *ngIf="form" [formGroup]="form">
+  <div class="row">
+    <div class="col">
+      <div>
+        <label class="form-label" vtcCaption="partnerType" view="PARTNER" sfx=":"></label>
+        <vtc-combobox [formControlName]="PARTNER_FIELDS.partnerType" dataSource="PARTNER_TYPE"></vtc-combobox>
+      </div>
+      <ng-container *ngIf="form.controls.partnerType.value === PartnerType.legalEntity"
+                    [formGroupName]="PARTNER_FIELDS.companyInfo">
+        <div>
+          <label class="form-label" vtcCaption="companyName" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="COMPANY_FIELDS.name"/>
+        </div>
+        <div>
+          <label class="form-label" vtcCaption="foundationYear" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="COMPANY_FIELDS.foundationYear"/>
+        </div>
+        <div>
+          <label class="form-label" vtcCaption="numEmployees" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="COMPANY_FIELDS.numEmployees"/>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="form.controls.partnerType.value === PartnerType.naturalPerson"
+                    [formGroupName]="PARTNER_FIELDS.personalInfo">
+        <div>
+          <label class="form-label" vtcCaption="firstName" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.firstName"/>
+        </div>
+        <div>
+          <label class="form-label" vtcCaption="lastName" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.lastName"/>
+        </div>
+        <div>
+          <label class="form-label" vtcCaption="middleName" view="PARTNER" sfx=":"></label>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.middleName"/>
+        </div>
+        <div>
+          <label class="form-label" vtcCaption="birthDate" view="PARTNER" sfx=":"></label>
+          <vtc-date-time-picker [withTime]="false" [formGroupName]="PERSONAL_FIELDS.birthDate">
+          </vtc-date-time-picker>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col">
+      <ng-container [formGroupName]="PARTNER_FIELDS.addressInfo">
+        <div class="row">
+          <div class="col">
+            <label class="form-label" vtcCaption="city" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.city"/>
+          </div>
+          <div class="col">
+            <label class="form-label" vtcCaption="idx" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.idx"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="form-label" vtcCaption="street" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.street"/>
+          </div>
+          <div class="col">
+            <label class="form-label" vtcCaption="houseNumber" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.houseNumber"/>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container [formGroupName]="PARTNER_FIELDS.contactInfo">
+        <div class="row">
+          <div class="col">
+            <label class="form-label" vtcCaption="email" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="CONTACT_FIELDS.email"/>
+          </div>
+          <div class="col">
+            <label class="form-label" vtcCaption="phone" view="PARTNER" sfx=":"></label>
+            <input type="text" class="form-control" [formControlName]="CONTACT_FIELDS.phone"/>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {PartnerListComponent} from './modules/partner/components/partner-list/partner-list.component';
 import {DummyComponent} from './modules/partner/components/dummy/dummy.component';
+import {SimpleOutletComponent} from './modules/base/components/simple-outlet/simple-outlet.component';
+import {PartnerEditorComponent} from './modules/partner/components/partner-editor/partner-editor.component';
+import {PartnerResolver} from './modules/partner/services/partner.resolver';
 
 const routes: Routes = [{
   path: '',
@@ -9,7 +12,25 @@ const routes: Routes = [{
   pathMatch: 'full'
 }, {
   path: 'partners',
-  component: PartnerListComponent
+  component: SimpleOutletComponent,
+  children: [
+    {
+      path: '',
+      redirectTo: 'list',
+      pathMatch: 'full'
+    },
+    {
+      path: 'list',
+      component: PartnerListComponent
+    },
+    {
+      path: 'edit/:id',
+      resolve: {
+        partner: PartnerResolver
+      },
+      component: PartnerEditorComponent
+    }
+  ]
 }, {
   path: 'dummy',
   component: DummyComponent

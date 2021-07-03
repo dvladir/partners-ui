@@ -10,7 +10,11 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           <vtc-caption value="displayName" view="PARTNER"></vtc-caption>
         </th>
-        <td cdk-cell *cdkCellDef="let element">{{element.displayName}}</td>
+        <td cdk-cell *cdkCellDef="let element">
+          <a href="#" (click)="editPartner(element);false">
+            {{element.displayName}}
+          </a>
+        </td>
       </ng-container>
       <ng-container cdkColumnDef="partnerType">
         <th cdk-header-cell *cdkHeaderCellDef>

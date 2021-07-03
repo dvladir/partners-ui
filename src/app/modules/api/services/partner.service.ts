@@ -38,15 +38,15 @@ export class PartnerService extends BaseService {
    */
   partnerControllerSearch$Response(params?: {
     query?: string;
-    pageSize?: number;
     pageNum?: number;
+    pageSize?: number;
   }): Observable<StrictHttpResponse<{ 'data'?: Array<PartnerHeaderDto> } & PageDataDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PartnerService.PartnerControllerSearchPath, 'get');
     if (params) {
       rb.query('query', params.query, {});
-      rb.query('pageSize', params.pageSize, {});
       rb.query('pageNum', params.pageNum, {});
+      rb.query('pageSize', params.pageSize, {});
     }
 
     return this.http.request(rb.build({
@@ -68,8 +68,8 @@ export class PartnerService extends BaseService {
    */
   partnerControllerSearch(params?: {
     query?: string;
-    pageSize?: number;
     pageNum?: number;
+    pageSize?: number;
   }): Observable<{ 'data'?: Array<PartnerHeaderDto> } & PageDataDto> {
 
     return this.partnerControllerSearch$Response(params).pipe(
