@@ -26,7 +26,10 @@ export class AddressFormService extends BaseFormService<AddressFormGroup, Addres
     return result;
   }
 
-  setApiErrors(form: AddressFormGroup, errors: ErrorInfoDto): void {
+  setApiErrors(form: AddressFormGroup, errors?: ErrorInfoDto): void {
+    if (!errors) {
+      return;
+    }
     Object.keys(ADDRESS_FIELDS).forEach(key => {
       const fieldErrors = errors?.children[key]?.errors;
       this.setApiErrorsToControl(form.controls[key], fieldErrors);

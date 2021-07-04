@@ -8,6 +8,7 @@ import {AddressFormService} from './address-form.service';
 import {ContactFormService} from './contact-form.service';
 import {PersonalFormService} from './personal-form.service';
 import {CompanyFormService} from './company-form.service';
+import {PartnerType} from './form-types/partner-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +36,15 @@ export class PartnerFormService extends BaseFormService<PartnerFormGroup, Partne
     return result;
   }
 
-  setApiErrors(form: PartnerFormGroup, errors: ErrorInfoDto): void {
-    this.setApiErrorsToControl(form.controls.partnerType, errors.children[PARTNER_FIELDS.partnerType!].errors);
-    this._addressForm.setApiErrors(form.controls.addressInfo, errors.children[PARTNER_FIELDS.addressInfo!]);
-    this._contactForm.setApiErrors(form.controls.contactInfo, errors.children[PARTNER_FIELDS.contactInfo!]);
-    this._personalForm.setApiErrors(form.controls.personalInfo, errors.children[PARTNER_FIELDS.personalInfo!]);
-    this._companyForm.setApiErrors(form.controls.companyInfo, errors.children[PARTNER_FIELDS.companyInfo!]);
+  setApiErrors(form: PartnerFormGroup, errors?: ErrorInfoDto): void {
+    if (!errors) {
+      return;
+    }
+    this.setApiErrorsToControl(form.controls.partnerType, errors?.children?.[PARTNER_FIELDS.partnerType!]?.errors);
+    this._addressForm.setApiErrors(form.controls.addressInfo, errors?.children?.[PARTNER_FIELDS.addressInfo!]);
+    this._contactForm.setApiErrors(form.controls.contactInfo, errors?.children?.[PARTNER_FIELDS.contactInfo!]);
+    this._personalForm.setApiErrors(form.controls.personalInfo, errors?.children?.[PARTNER_FIELDS.personalInfo!]);
+    this._companyForm.setApiErrors(form.controls.companyInfo, errors?.children?.[PARTNER_FIELDS.companyInfo!]);
     this.setApiErrorsToControl(form, errors?.errors);
   }
 
@@ -50,7 +54,20 @@ export class PartnerFormService extends BaseFormService<PartnerFormGroup, Partne
     const contactInfo = this._contactForm.extractDto(form.controls.contactInfo);
     const personalInfo = this._personalForm.extractDto(form.controls.personalInfo);
     const companyInfo = this._companyForm.extractDto(form.controls.companyInfo);
-    return {id, partnerType, addressInfo, companyInfo, contactInfo, personalInfo};
+
+    const commonData: Pick<PartnerDto, 'addressInfo' | 'contactInfo' | 'id' | 'partnerType'> = {
+      id, partnerType, addressInfo, contactInfo
+    };
+
+    const result: PartnerDto = partnerType === PartnerType.legalEntity ? {
+      ...commonData,
+      companyInfo
+    } as PartnerDto : {
+      ...commonData,
+      personalInfo
+    } as PartnerDto;
+
+    return result;
   }
 
 }

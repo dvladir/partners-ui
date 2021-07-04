@@ -3,13 +3,15 @@ import { PartnerListComponent } from './components/partner-list/partner-list.com
 import { DummyComponent } from './components/dummy/dummy.component';
 import { PartnerEditorComponent } from './components/partner-editor/partner-editor.component';
 import {BaseModule} from '../base/base.module';
+import { PartnerListActionComponent } from './components/partner-list-action/partner-list-action.component';
 
 
 @NgModule({
   declarations: [
     PartnerListComponent,
     DummyComponent,
-    PartnerEditorComponent
+    PartnerEditorComponent,
+    PartnerListActionComponent
   ],
   imports: [
     BaseModule

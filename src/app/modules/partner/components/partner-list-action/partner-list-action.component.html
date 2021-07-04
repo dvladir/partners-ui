@@ -1,0 +1,13 @@
+<button type="button" (click)="isOpen = true" class="btn btn-link invoke-button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <i class="fa fa-ellipsis-v"></i>
+</button>
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
+  <div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action" (click)="open();false">
+      <vtc-caption value="open" view="BUTTONS"></vtc-caption>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action" (click)="remove();false">
+      <vtc-caption value="delete" view="BUTTONS"></vtc-caption>
+    </a>
+  </div>
+</ng-template>

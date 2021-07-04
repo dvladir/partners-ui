@@ -25,7 +25,10 @@ export class CompanyFormService extends BaseFormService<CompanyFormGroup, Compan
     return result;
   }
 
-  setApiErrors(form: CompanyFormGroup, errors: ErrorInfoDto): void {
+  setApiErrors(form: CompanyFormGroup, errors?: ErrorInfoDto): void {
+    if (!errors) {
+      return;
+    }
     Object.keys(COMPANY_FIELDS).forEach(key => {
       const fieldErrors = errors?.children[key]?.errors;
       this.setApiErrorsToControl(form.controls[key], fieldErrors);

@@ -2,6 +2,11 @@
   <div class="col" [formGroup]="searchForm">
     <input type="text" class="form-control" vtcPlaceholderCaption="search" formControlName="search"/>
   </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary" (click)="createPartner()">
+        <vtc-caption value="create" view="BUTTONS"></vtc-caption>
+    </button>
+  </div>
 </div>
 <div class="row">
   <div class="col">
@@ -41,6 +46,13 @@
           <vtc-caption value="address" view="PARTNER"></vtc-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.address}}</td>
+      </ng-container>
+      <ng-container cdkColumnDef="action">
+        <th cdk-header-cell *cdkHeaderCellDef></th>
+        <td cdk-cell *cdkCellDef="let element">
+          <app-partner-list-action [partnerHeader]="element">
+          </app-partner-list-action>
+        </td>
       </ng-container>
     </vtc-table>
   </div>

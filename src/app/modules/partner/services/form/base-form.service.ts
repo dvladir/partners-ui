@@ -4,7 +4,7 @@ import {API_ERRORS} from './form-ext/api-errors';
 
 export abstract class BaseFormService<FORM, DTO> {
   abstract createForm(value?: DTO): FORM;
-  abstract setApiErrors(form: FORM, errors: ErrorInfoDto): void;
+  abstract setApiErrors(form: FORM, errors?: ErrorInfoDto): void;
   abstract extractDto(form: FORM): DTO;
 
   protected setApiErrorsToControl(control: AbstractControl, errors: string[]): void {
@@ -12,6 +12,9 @@ export abstract class BaseFormService<FORM, DTO> {
       const errorsData: ValidationErrors = {};
       (errorsData as any)[API_ERRORS] = errors;
       control.setErrors(errorsData);
+      if (!control.dirty) {
+        control.markAsDirty();
+      }
     }
   }
 }

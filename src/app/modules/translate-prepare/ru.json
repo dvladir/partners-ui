@@ -1,6 +1,7 @@
 {
   "CAPTIONS": {
-    "search": "Поиск"
+    "search": "Поиск",
+    "no_data": "По указанному запросу, данные не найдены"
   },
   "PARTNER": {
     "displayName": "Имя",
@@ -28,5 +29,43 @@
   "PARTNER_TYPE": {
     "naturalPerson": "Физ. Лицо",
     "legalEntity": "Юр. Лицо"
+  },
+  "BUTTONS": {
+    "create": "Создать",
+    "save": "Сохранить",
+    "cancel": "Отменить",
+    "open": "Открыть",
+    "delete": "Удалить"
+  },
+  "MESSAGES": {
+    "partner_unsaved_changes": "Данные партнёра не сохранены. Вы хотите продолжить?",
+    "partner_invalid_fields": "Исправьте некорректно вееденные поля",
+    "partner_remove": "Вы уверены, что хотите удалить этого партнёра?"
+  },
+  "YES_NO_CANCEL": {
+    "yes": "Да",
+    "no": "Нет",
+    "cancel": "Отменить",
+    "ok": "Ok"
+  },
+  "SERVER_ERRORS": {
+    "INTERNAL_ERROR": "Произошла неизвестная ошибка. Попробуйте повторить свой запрос позже.",
+    "INVALID_PARTNER_TYPE": "Тип партнёра задан неверно.",
+    "PARTNER_NOT_FOUND": "Партнёр не найден.",
+    "VALIDATION_ERROR": "Данные заполнены не верно."
+  },
+  "MONTHS" :{
+    "month_0": "Январь",
+    "month_1": "Февраль",
+    "month_2": "Март",
+    "month_3": "Апрель",
+    "month_4": "Май",
+    "month_5": "Июнь",
+    "month_6": "Июль",
+    "month_7": "Август",
+    "month_8": "Сентябрь",
+    "month_9": "Октябрь",
+    "month_10": "Ноябрь",
+    "month_11": "Декабрь"
   }
 }

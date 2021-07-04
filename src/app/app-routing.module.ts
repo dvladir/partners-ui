@@ -5,6 +5,7 @@ import {DummyComponent} from './modules/partner/components/dummy/dummy.component
 import {SimpleOutletComponent} from './modules/base/components/simple-outlet/simple-outlet.component';
 import {PartnerEditorComponent} from './modules/partner/components/partner-editor/partner-editor.component';
 import {PartnerResolver} from './modules/partner/services/partner.resolver';
+import {PartnerDeactivate} from './modules/partner/services/partner.deactivate';
 
 const routes: Routes = [{
   path: '',
@@ -28,6 +29,9 @@ const routes: Routes = [{
       resolve: {
         partner: PartnerResolver
       },
+      canDeactivate: [
+        PartnerDeactivate
+      ],
       component: PartnerEditorComponent
     }
   ]

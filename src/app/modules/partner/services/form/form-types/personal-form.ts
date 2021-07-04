@@ -1,9 +1,11 @@
 import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
+import {PersonalDto} from '../../../../api/models/personal-dto';
+import {Gender} from './gender.enum';
 
-export class PersonalValue {
+export class PersonalValue implements PersonalDto {
   birthDate: string = '';
   firstName: string = '';
-  isMale: boolean = true;
+  gender: Gender = Gender.male;
   lastName: string = '';
   middleName: string = '';
 }

@@ -1,28 +1,35 @@
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
-import {PartnerDto} from '../../api/models/partner-dto';
-import {PartnerService} from '../../api/services/partner.service';
 import {Injectable} from '@angular/core';
+import {Store} from '@ngxs/store';
+import {GetPartner} from '../store/parnter.actions';
+import {NavigationService} from '../../base/services/navigation.service';
+import {ToastService} from '@vt/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartnerResolver implements Resolve<PartnerDto | undefined> {
+export class PartnerResolver implements Resolve<any> {
 
   constructor(
-    private _api: PartnerService
+    private _store: Store,
+    private _nav: NavigationService,
+    private _toast: ToastService
   ) {
   }
 
-  resolve(
+  async resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<PartnerDto | undefined> | Promise<PartnerDto | undefined> | PartnerDto | undefined {
-    const partnerId: string = route.params['id'];
-    if (partnerId === 'new') {
-      return undefined;
+  ): Promise<any> {
+    let partnerId: string | undefined = route.params['id'];
+    partnerId = partnerId === 'new' ? undefined : partnerId;
+    const st = await this._store.dispatch(new GetPartner(partnerId)).toPromise();
+    if (!st.partners.getPartnerSucceed) {
+      this._nav.openPartnerList();
+      return false;
     }
-    return this._api.partnerControllerGetPartner({partnerId});
+    this._toast.removeAll();
+    return true;
   }
 
 }

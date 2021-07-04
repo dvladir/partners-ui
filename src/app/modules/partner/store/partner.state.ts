@@ -2,15 +2,31 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {PaginationData, Sort, SortField} from '@vt/core';
 import {PartnerHeaderDto} from '../../api/models/partner-header-dto';
 import {PartnerService} from '../../api/services/partner.service';
-import {InitialLoadPartners, SearchPartners} from './parnter.actions';
-import {map} from 'rxjs/operators';
+import {
+  ClearPartnerData, DeletePartner,
+  GetPartner,
+  InitialLoadPartners,
+  RefreshSearchPartners,
+  SavePartner,
+  SearchPartners
+} from './parnter.actions';
+import {catchError, map} from 'rxjs/operators';
 import {PageDataDto} from '../../api/models/page-data-dto';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {PartnerDto} from '../../api/models/partner-dto';
+import {ErrorInfoDto} from '../../api/models/error-info-dto';
+import {ErrorInfo} from '../../base/share/error-info';
+import {ErrorMessageCode} from '../../base/share/error-message-code.enum';
+import {ValidationError} from '../../base/share/validation-error';
 
 export interface PartnerStateModel {
   partnerList: PaginationData<PartnerHeaderDto>;
   query: string;
+  editablePartner?: PartnerDto
+  getPartnerSucceed?: boolean;
+  savePartnerSucceed?: boolean;
+  partnerValidationErrors?: ErrorInfoDto;
 }
 
 const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto): PaginationData<T> => {
@@ -91,6 +107,127 @@ export class PartnerState {
     return undefined;
   }
 
+  @Action(RefreshSearchPartners)
+  async refreshSearchPartners(ctx: StateContext<PartnerStateModel>, action: RefreshSearchPartners): Promise<unknown> {
+    const state = ctx.getState();
+    const query = state.query;
+    const pageNum = state.partnerList.currentPage;
+    const pageSize = state.partnerList.pageSize;
+    return ctx.dispatch(new SearchPartners(pageNum, pageSize, query));
+  }
+
+  @Action(GetPartner)
+  async getPartner(ctx: StateContext<PartnerStateModel>, action: GetPartner): Promise<boolean> {
+    const state = ctx.getState();
+    const {partnerId} = action;
+    let getPartnerSucceed = true;
+    let editablePartner: PartnerDto | undefined = undefined;
+
+    if (!partnerId) {
+      ctx.setState({
+        ...state,
+        savePartnerSucceed: undefined,
+        getPartnerSucceed,
+        editablePartner
+      });
+      return true;
+    }
+
+    editablePartner = await this._partnersApi
+      .partnerControllerGetPartner({partnerId})
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          getPartnerSucceed = false;
+          return of(undefined);
+        })
+      )
+      .toPromise();
+
+    ctx.setState({
+      ...state,
+      savePartnerSucceed: undefined,
+      getPartnerSucceed,
+      editablePartner
+    });
+
+    return true;
+  }
+
+  @Action(ClearPartnerData)
+  async clearPartnerData(ctx: StateContext<PartnerStateModel>, action: ClearPartnerData): Promise<boolean> {
+    const state = ctx.getState();
+    ctx.setState({
+      ...state,
+      savePartnerSucceed: undefined,
+      getPartnerSucceed: undefined,
+      editablePartner: undefined,
+      partnerValidationErrors: undefined
+    });
+    return true;
+  }
+
+  @Action(SavePartner)
+  async savePartner(ctx: StateContext<PartnerStateModel>, action: SavePartner): Promise<boolean> {
+    const state = ctx.getState();
+    const body = action.partner;
+    const partnerId = body.id;
+
+    let response$: Observable<unknown>;
+    let savePartnerSucceed: boolean = true;
+    let partnerValidationErrors: ErrorInfoDto | undefined = undefined;
+
+    if (!partnerId) {
+      response$ = this._partnersApi.partnerControllerAddPartner({body})
+    } else {
+      response$ = this._partnersApi.partnerControllerUpdatePartner({partnerId, body});
+    }
+
+    await response$.pipe(
+      catchError(err => {
+        console.log(err);
+        savePartnerSucceed = false;
+        if (err instanceof ValidationError) {
+          partnerValidationErrors = err.errors;
+        }
+        return of(undefined)
+      })
+    ).toPromise();
+
+    ctx.setState({
+      ...state,
+      savePartnerSucceed,
+      partnerValidationErrors,
+      getPartnerSucceed: undefined,
+    });
+
+    if (savePartnerSucceed) {
+      await ctx.dispatch(new RefreshSearchPartners());
+    }
+
+    return true;
+  }
+
+  @Action(DeletePartner)
+  async deletePartner(ctx: StateContext<PartnerStateModel>, action: DeletePartner): Promise<unknown> {
+    const {partnerId} = action;
+    let isDeleteSucceed: boolean = true;
+    await this._partnersApi.partnerControllerRemovePartner({partnerId})
+      .pipe(
+        catchError(err => {
+          isDeleteSucceed = false;
+          console.log(err);
+          return of(undefined);
+        })
+      )
+      .toPromise();
+
+    if (isDeleteSucceed) {
+      ctx.dispatch(new RefreshSearchPartners());
+    }
+    return undefined;
+  }
+
   @Selector()
   static searchQuery(state: PartnerStateModel): string {
     return state.query;
@@ -99,5 +236,15 @@ export class PartnerState {
   @Selector()
   static partnerList(state: PartnerStateModel): PaginationData<PartnerHeaderDto> {
     return state.partnerList;
+  }
+
+  @Selector()
+  static editablePartner(state: PartnerStateModel): PartnerDto | undefined {
+    return state.editablePartner;
+  }
+
+  @Selector()
+  static partnerValidationErrors(state: PartnerStateModel): ErrorInfoDto | undefined {
+    return state.partnerValidationErrors;
   }
 }

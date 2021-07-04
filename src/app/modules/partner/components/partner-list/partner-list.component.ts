@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, TrackByFunction, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, TrackByFunction, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {PaginationConfig, PaginationData, SortField, TableComponent} from '@vt/core';
@@ -51,6 +51,10 @@ export class PartnerListComponent implements AfterViewInit, OnDestroy {
 
   editPartner(partner: PartnerHeaderDto): void {
     this._nav.editPartner(partner.id);
+  }
+
+  createPartner(): void {
+    this._nav.createPartner();
   }
 
   ngAfterViewInit(): void {

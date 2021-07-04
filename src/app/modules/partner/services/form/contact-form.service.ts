@@ -24,7 +24,10 @@ export class ContactFormService extends BaseFormService<ContactFormGroup, Contac
     return result;
   }
 
-  setApiErrors(form: ContactFormGroup, errors: ErrorInfoDto): void {
+  setApiErrors(form: ContactFormGroup, errors?: ErrorInfoDto): void {
+    if (!errors) {
+      return;
+    }
     Object.keys(CONTACT_FIELDS).forEach(key => {
       const fieldErrors = errors?.children[key]?.errors;
       this.setApiErrorsToControl(form?.controls[key], fieldErrors);
