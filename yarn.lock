@@ -1476,8 +1476,8 @@
 
 "@vt/core@0.0.1":
   version "0.0.1"
-  resolved "http://localhost:8087/repository/NpmGroupRep/@vt/core/-/core-0.0.1.tgz#ba49e8c0a694484ac68b4512c5090cf93f6e6aef"
-  integrity sha512-Dl12f89RBiYN3mRnb6Z0uFo35SPCHe3wPty3DPFVSduVIMtetiUoWtwyGX9eS0//iaOHivul03CjZYpCWAt8tA==
+  resolved "http://localhost:8087/repository/NpmGroupRep/@vt/core/-/core-0.0.1.tgz#c03cab6d0a6b555a7e599a1a8ac05ce5c33c820d"
+  integrity sha512-DAJ1Vudq43Fy30qDP9KaHRuAyI+Co0Pbuw4X46jGaOefDm1vY9laVZSbvBshG3W8klMFrhDnJlLCFfAU9VYiOQ==
   dependencies:
     tslib "^2.0.0"
 

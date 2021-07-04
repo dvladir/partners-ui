@@ -1,9 +1,11 @@
-import {Component, ElementRef, HostListener, Input} from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {PartnerHeaderDto} from '../../../api/models/partner-header-dto';
 import {NavigationService} from '../../../base/services/navigation.service';
-import {ModalService} from '@vt/core';
+import {ModalService, VtMessage} from '@vt/core';
 import {DeletePartner} from '../../store/parnter.actions';
+
+const VIEW = 'BUTTONS';
 
 @Component({
   selector: 'app-partner-list-action',
@@ -22,27 +24,32 @@ export class PartnerListActionComponent {
 
   @Input() partnerHeader?: PartnerHeaderDto;
 
-  isOpen: boolean = false;
+  readonly actions: ReadonlyArray<{ key: string, label: VtMessage }> = ['open', 'delete'].map(key => {
+    const view = VIEW;
+    const message = key;
+    return {key, label: {message, view}}
+  });
 
-  @HostListener('document:click', ['$event'])
-  documentClick(event: MouseEvent): void {
-    const t = event.target as HTMLElement;
-    const check = 'invoke-button';
-    if (t.classList.contains(check) || t.parentElement!.classList.contains(check)) {
-      return;
+  onActionChoose(action: string): void {
+    switch (action) {
+      case 'open':
+        this.open();
+        break;
+      case 'delete':
+        this.remove();
+        break;
+      default:
+        break;
     }
-    this.isOpen = false;
   }
 
   open(): void {
-    this.isOpen = false;
     if (this.partnerHeader) {
       this._nav.editPartner(this.partnerHeader.id);
     }
   }
 
   async remove(): Promise<unknown> {
-    this.isOpen = false;
     if (!this.partnerHeader) {
       return undefined;
     }

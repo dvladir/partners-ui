@@ -77,9 +77,8 @@ export class PartnerEditorComponent implements OnInit, OnDestroy {
     this.validationErrors!
       .pipe(takeUntil(this._terminator$))
       .subscribe(errors => {
-        this._partnerForm.setApiErrors(this.form!, errors);
-        if (!this.form!.valid) {
-          this.form!.markAsDirty();
+        if (errors) {
+          this._partnerForm.setApiErrors(this.form!, errors);
           this.showIncorrectFieldsMessage();
         }
       });
@@ -88,7 +87,7 @@ export class PartnerEditorComponent implements OnInit, OnDestroy {
   }
 
   async cancel(): Promise<any> {
-    this._store.dispatch(new ClearPartnerData());
+    await this._store.dispatch(new ClearPartnerData()).toPromise();
     this._nav.openPartnerList();
   }
 
