@@ -1,5 +1,5 @@
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
 import {AddressDto} from '../../../../api/models/address-dto';
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
 
 export class AddressValue implements AddressDto {
   city: string = '';

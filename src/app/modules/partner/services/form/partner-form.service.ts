@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {BaseFormService} from './base-form.service';
+import {FormBuilder} from '@angular/forms';
+import {BaseFormService, ErrorInfo} from '@vt/core';
 import {PARTNER_FIELDS, PartnerFormGroup} from './form-types/partner-form';
 import {PartnerDto} from '../../../api/models/partner-dto';
 import {ErrorInfoDto} from '../../../api/models/error-info-dto';
-import {FormBuilder} from '@angular/forms';
 import {AddressFormService} from './address-form.service';
 import {ContactFormService} from './contact-form.service';
 import {PersonalFormService} from './personal-form.service';
@@ -36,7 +36,7 @@ export class PartnerFormService extends BaseFormService<PartnerFormGroup, Partne
     return result;
   }
 
-  setApiErrors(form: PartnerFormGroup, errors?: ErrorInfoDto): void {
+  setApiErrors(form: PartnerFormGroup, errors?: ErrorInfo): void {
     if (!errors) {
       return;
     }

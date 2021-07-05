@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BaseFormService} from './base-form.service';
+import {FormBuilder} from '@angular/forms';
+import {BaseFormService, ErrorInfo} from '@vt/core';
 import {CONTACT_FIELDS, ContactFormGroup} from './form-types/contact-form';
 import {ContactDto} from '../../../api/models/contact-dto';
-import {FormBuilder} from '@angular/forms';
-import {ErrorInfoDto} from '../../../api/models/error-info-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class ContactFormService extends BaseFormService<ContactFormGroup, Contac
     return result;
   }
 
-  setApiErrors(form: ContactFormGroup, errors?: ErrorInfoDto): void {
+  setApiErrors(form: ContactFormGroup, errors?: ErrorInfo): void {
     if (!errors) {
       return;
     }

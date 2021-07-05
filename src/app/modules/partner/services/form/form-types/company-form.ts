@@ -1,5 +1,5 @@
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
 import {CompanyDto} from '../../../../api/models/company-dto';
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
 
 export class CompanyValue implements CompanyDto {
   foundationYear: number = 0;

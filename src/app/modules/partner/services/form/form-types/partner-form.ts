@@ -1,8 +1,8 @@
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
 import {AddressFormConfig, AddressFormGroup, AddressValue} from './address-form';
 import {CompanyFormConfig, CompanyFormGroup, CompanyValue} from './company-form';
 import {ContactFormConfig, ContactFormGroup, ContactValue} from './contact-form';
 import {PersonalFormConfig, PersonalFormGroup, PersonalValue} from './personal-form';
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
 import {PartnerType} from './partner-type.enum';
 
 export class PartnerValue {

@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
 import {PersonalDto} from '../../../../api/models/personal-dto';
 import {Gender} from './gender.enum';
 

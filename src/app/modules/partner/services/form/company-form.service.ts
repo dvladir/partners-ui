@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BaseFormService} from './base-form.service';
+import {FormBuilder} from '@angular/forms';
+import {BaseFormService, ErrorInfo} from '@vt/core';
 import {COMPANY_FIELDS, CompanyFormGroup} from './form-types/company-form';
 import {CompanyDto} from '../../../api/models/company-dto';
-import {FormBuilder} from '@angular/forms';
-import {ErrorInfoDto} from '../../../api/models/error-info-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class CompanyFormService extends BaseFormService<CompanyFormGroup, Compan
     return result;
   }
 
-  setApiErrors(form: CompanyFormGroup, errors?: ErrorInfoDto): void {
+  setApiErrors(form: CompanyFormGroup, errors?: ErrorInfo): void {
     if (!errors) {
       return;
     }

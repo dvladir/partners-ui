@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BaseFormService} from './base-form.service';
+import {FormBuilder} from '@angular/forms';
+import {BaseFormService, ErrorInfo} from '@vt/core';
 import {PERSONAL_FIELDS, PersonalFormGroup} from './form-types/personal-form';
 import {PersonalDto} from '../../../api/models/personal-dto';
-import {ErrorInfoDto} from '../../../api/models/error-info-dto';
-import {FormBuilder} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class PersonalFormService extends BaseFormService<PersonalFormGroup, Pers
     return result;
   }
 
-  setApiErrors(form: PersonalFormGroup, errors?: ErrorInfoDto): void {
+  setApiErrors(form: PersonalFormGroup, errors?: ErrorInfo): void {
     if (!errors) {
       return;
     }

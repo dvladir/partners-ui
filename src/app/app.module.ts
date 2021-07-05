@@ -12,7 +12,8 @@ import {BaseModule} from './modules/base/base.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpErrorInterceptor} from './modules/base/services/http-error.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgxsReduxDevtoolsPlugin, NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {DEFAULT_ERROR_VIEW} from '@vt/core';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,9 @@ import {NgxsReduxDevtoolsPlugin, NgxsReduxDevtoolsPluginModule} from '@ngxs/devt
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
+  }, {
+    provide: DEFAULT_ERROR_VIEW,
+    useValue: 'VALIDATION_ERRORS'
   }],
   bootstrap: [AppComponent]
 })

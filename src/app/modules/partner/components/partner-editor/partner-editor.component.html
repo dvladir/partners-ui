@@ -3,45 +3,65 @@
     <div class="col">
       <div>
         <label class="form-label" vtcCaption="partnerType" view="PARTNER" sfx=":"></label>
-        <vtc-combobox [formControlName]="PARTNER_FIELDS.partnerType" dataSource="PARTNER_TYPE" [showAll]="true"></vtc-combobox>
+        <vtc-combobox [formControlName]="PARTNER_FIELDS.partnerType" dataSource="PARTNER_TYPE" [showAll]="true"
+                      vtcErrSrc #errPartnerType="VtcErrSrc">
+        </vtc-combobox>
+        <vtc-error-description [errorSrc]="errPartnerType"></vtc-error-description>
       </div>
       <ng-container *ngIf="form.controls.partnerType.value === PartnerType.legalEntity"
                     [formGroupName]="PARTNER_FIELDS.companyInfo">
         <div>
           <label class="form-label" vtcCaption="companyName" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [formControlName]="COMPANY_FIELDS.name"/>
+          <input type="text" class="form-control" [formControlName]="COMPANY_FIELDS.name"
+                 vtcErrSrc #errCompanyName="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errCompanyName"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="foundationYear" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [vtcNumber] [formControlName]="COMPANY_FIELDS.foundationYear"/>
+          <input type="text" class="form-control" [vtcNumber] [formControlName]="COMPANY_FIELDS.foundationYear"
+                 vtcErrSrc #errFoundationYear="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errFoundationYear"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="numEmployees" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [vtcNumber]="numEmplRange" [formControlName]="COMPANY_FIELDS.numEmployees"/>
+          <input type="text" class="form-control" [vtcNumber]="numEmplRange" [formControlName]="COMPANY_FIELDS.numEmployees"
+                 vtcErrSrc #errNumEmployees="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errNumEmployees"></vtc-error-description>
         </div>
       </ng-container>
       <ng-container *ngIf="form.controls.partnerType.value === PartnerType.naturalPerson"
                     [formGroupName]="PARTNER_FIELDS.personalInfo">
         <div>
           <label class="form-label" vtcCaption="firstName" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.firstName"/>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.firstName"
+                 vtcErrSrc #errFirstName="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errFirstName"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="lastName" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.lastName"/>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.lastName"
+                 vtcErrSrc #errLastName="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errLastName"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="middleName" view="PARTNER" sfx=":"></label>
-          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.middleName"/>
+          <input type="text" class="form-control" [formControlName]="PERSONAL_FIELDS.middleName"
+                 vtcErrSrc #errMiddleName="VtcErrSrc"/>
+          <vtc-error-description [errorSrc]="errMiddleName"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="gender" view="PARTNER" sfx=":"></label>
-          <vtc-combobox dataSource="GENDER" [showAll]="true" [formControlName]="PERSONAL_FIELDS.gender"></vtc-combobox>
+          <vtc-combobox dataSource="GENDER" [showAll]="true" [formControlName]="PERSONAL_FIELDS.gender"
+                        vtcErrSrc #errGender="VtcErrSrc">
+          </vtc-combobox>
+          <vtc-error-description [errorSrc]="errGender"></vtc-error-description>
         </div>
         <div>
           <label class="form-label" vtcCaption="birthDate" view="PARTNER" sfx=":"></label>
-          <vtc-date-time-picker [withTime]="false" [formControlName]="PERSONAL_FIELDS.birthDate">
+          <vtc-date-time-picker [withTime]="false" [formControlName]="PERSONAL_FIELDS.birthDate"
+                                vtcErrSrc #errBirthDate="VtcErrSrc">
           </vtc-date-time-picker>
+          <vtc-error-description [errorSrc]="errBirthDate"></vtc-error-description>
         </div>
       </ng-container>
     </div>
@@ -50,21 +70,29 @@
         <div class="row">
           <div class="col">
             <label class="form-label" vtcCaption="city" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.city"/>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.city"
+                   vtcErrSrc #errCity="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errCity"></vtc-error-description>
           </div>
           <div class="col">
             <label class="form-label" vtcCaption="idx" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.idx"/>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.idx"
+                   vtcErrSrc #errIdx="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errIdx"></vtc-error-description>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label" vtcCaption="street" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.street"/>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.street"
+                   vtcErrSrc #errStreet="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errStreet"></vtc-error-description>
           </div>
           <div class="col">
             <label class="form-label" vtcCaption="houseNumber" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.houseNumber"/>
+            <input type="text" class="form-control" [formControlName]="ADDRESS_FIELDS.houseNumber"
+                   vtcErrSrc #errHouseNumber="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errHouseNumber"></vtc-error-description>
           </div>
         </div>
       </ng-container>
@@ -72,11 +100,15 @@
         <div class="row">
           <div class="col">
             <label class="form-label" vtcCaption="email" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" vtcEmail [formControlName]="CONTACT_FIELDS.email"/>
+            <input type="text" class="form-control" vtcEmail [formControlName]="CONTACT_FIELDS.email"
+                   vtcErrSrc #errEmail="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errEmail"></vtc-error-description>
           </div>
           <div class="col">
             <label class="form-label" vtcCaption="phone" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [vtcPhone]="PHONE_MASK" [formControlName]="CONTACT_FIELDS.phone"/>
+            <input type="text" class="form-control" [vtcPhone]="PHONE_MASK" [formControlName]="CONTACT_FIELDS.phone"
+                   vtcErrSrc #errPhone="VtcErrSrc"/>
+            <vtc-error-description [errorSrc]="errPhone"></vtc-error-description>
           </div>
         </div>
       </ng-container>

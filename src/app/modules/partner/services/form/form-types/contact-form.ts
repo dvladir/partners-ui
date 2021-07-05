@@ -1,5 +1,5 @@
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
 import {ContactDto} from '../../../../api/models/contact-dto';
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '../form-ext/typed-form';
 
 export class ContactValue implements ContactDto {
   email: string = '';

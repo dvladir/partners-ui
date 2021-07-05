@@ -5,7 +5,6 @@ import { PartnerEditorComponent } from './components/partner-editor/partner-edit
 import {BaseModule} from '../base/base.module';
 import { PartnerListActionComponent } from './components/partner-list-action/partner-list-action.component';
 
-
 @NgModule({
   declarations: [
     PartnerListComponent,

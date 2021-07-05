@@ -67,5 +67,10 @@
     "month_9": "Октябрь",
     "month_10": "Ноябрь",
     "month_11": "Декабрь"
+  },
+  "VALIDATION_ERRORS": {
+    "FIELD_REQUIRED": "Поле обязательно для ввода",
+    "INVALID_VALUE": "Неверное значение",
+    "INVALID_EMAIL": "Невалидный email"
   }
 }
