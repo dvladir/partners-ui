@@ -1,5 +1,5 @@
-<vtc-action-list #actionList [items]="actions" (chooseAction)="onActionChoose($event)">
+<dv-action-list #actionList [items]="actions" (chooseAction)="onActionChoose($event)">
   <button type="button" class="btn btn-link invoke-button" (click)="actionList.openList()">
     <i class="fa fa-ellipsis-v"></i>
   </button>
-</vtc-action-list>
+</dv-action-list>

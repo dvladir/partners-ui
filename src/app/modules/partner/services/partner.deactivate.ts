@@ -1,7 +1,7 @@
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {PartnerEditorComponent} from '../components/partner-editor/partner-editor.component';
 import {Injectable} from '@angular/core';
-import {ModalService} from '@vt/core';
+import {ModalService} from '@dvladir/ng-ui-kit';
 
 @Injectable({
   providedIn: 'root'

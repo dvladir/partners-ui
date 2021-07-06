@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@vt/core';
+import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
 import {PARTNER_FIELDS, PartnerFormGroup} from './form-types/partner-form';
 import {PartnerDto} from '../../../api/models/partner-dto';
 import {ErrorInfoDto} from '../../../api/models/error-info-dto';

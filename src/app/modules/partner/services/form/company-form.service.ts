@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@vt/core';
+import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
 import {COMPANY_FIELDS, CompanyFormGroup} from './form-types/company-form';
 import {CompanyDto} from '../../../api/models/company-dto';
 

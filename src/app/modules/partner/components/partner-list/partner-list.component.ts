@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnDestroy, TrackByFunction, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
-import {PaginationConfig, PaginationData, SortField, TableComponent} from '@vt/core';
+import {PaginationConfig, PaginationData, SortField, TableComponent} from '@dvladir/ng-ui-kit';
 import {PartnerHeaderDto} from '../../../api/models/partner-header-dto';
 import {SearchPartners} from '../../store/parnter.actions';
 import {PartnerState} from '../../store/partner.state';

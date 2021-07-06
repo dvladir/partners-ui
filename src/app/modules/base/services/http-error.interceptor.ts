@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ErrorMessageCode} from '../share/error-message-code.enum';
-import {ToastService} from '@vt/core';
+import {ToastService} from '@dvladir/ng-ui-kit';
 import {ErrorInfo} from '../share/error-info';
 import {ValidationError} from '../share/validation-error';
 import {ErrorInfoDto} from '../../api/models/error-info-dto';

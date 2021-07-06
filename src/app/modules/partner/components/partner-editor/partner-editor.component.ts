@@ -14,7 +14,7 @@ import {Select, Store} from '@ngxs/store';
 import {PartnerState} from '../../store/partner.state';
 import {ClearPartnerData, SavePartner} from '../../store/parnter.actions';
 import {ErrorInfoDto} from '../../../api/models/error-info-dto';
-import {ModalService} from '@vt/core';
+import {ModalService} from '@dvladir/ng-ui-kit';
 
 @Component({
   selector: 'app-partner-editor',

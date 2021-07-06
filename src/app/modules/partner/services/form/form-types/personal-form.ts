@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
 import {PersonalDto} from '../../../../api/models/personal-dto';
 import {Gender} from './gender.enum';
 

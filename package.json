@@ -24,7 +24,7 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4",
-    "@vt/core": "0.0.1",
+    "@dvladir/ng-ui-kit": "0.0.1",
     "@angular/cdk": "^12.0.3",
     "@ngx-translate/core": "^13.0.0",
     "@fortawesome/fontawesome-free": "^5.15.2",

@@ -1,19 +1,19 @@
 <div class="row">
   <div class="col" [formGroup]="searchForm">
-    <input type="text" class="form-control" vtcPlaceholderCaption="search" formControlName="search"/>
+    <input type="text" class="form-control" dvPlaceholderCaption="search" formControlName="search"/>
   </div>
   <div class="col-auto">
     <button type="button" class="btn btn-primary" (click)="createPartner()">
-        <vtc-caption value="create" view="BUTTONS"></vtc-caption>
+        <dv-caption value="create" view="BUTTONS"></dv-caption>
     </button>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <vtc-table [config]="paginationConfig" [trackBy]="trackByFn" #table>
+    <dv-table [config]="paginationConfig" [trackBy]="trackByFn" #table>
       <ng-container cdkColumnDef="displayName">
         <th cdk-header-cell *cdkHeaderCellDef>
-          <vtc-caption value="displayName" view="PARTNER"></vtc-caption>
+          <dv-caption value="displayName" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">
           <a href="#" (click)="editPartner(element);false">
@@ -23,27 +23,27 @@
       </ng-container>
       <ng-container cdkColumnDef="partnerType">
         <th cdk-header-cell *cdkHeaderCellDef>
-          <vtc-caption value="partnerType" view="PARTNER"></vtc-caption>
+          <dv-caption value="partnerType" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">
-          <vtc-caption [value]="element.partnerType" view="PARTNER_TYPE"></vtc-caption>
+          <dv-caption [value]="element.partnerType" view="PARTNER_TYPE"></dv-caption>
         </td>
       </ng-container>
       <ng-container cdkColumnDef="email">
         <th cdk-header-cell *cdkHeaderCellDef>
-          <vtc-caption value="email" view="PARTNER"></vtc-caption>
+          <dv-caption value="email" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.email}}</td>
       </ng-container>
       <ng-container cdkColumnDef="city">
         <th cdk-header-cell *cdkHeaderCellDef>
-          <vtc-caption value="city" view="PARTNER"></vtc-caption>
+          <dv-caption value="city" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.city}}</td>
       </ng-container>
       <ng-container cdkColumnDef="address">
         <th cdk-header-cell *cdkHeaderCellDef>
-          <vtc-caption value="address" view="PARTNER"></vtc-caption>
+          <dv-caption value="address" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.address}}</td>
       </ng-container>
@@ -54,6 +54,6 @@
           </app-partner-list-action>
         </td>
       </ng-container>
-    </vtc-table>
+    </dv-table>
   </div>
 </div>

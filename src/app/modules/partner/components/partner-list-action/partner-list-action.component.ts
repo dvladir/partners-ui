@@ -2,7 +2,7 @@ import {Component, ElementRef, Input} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {PartnerHeaderDto} from '../../../api/models/partner-header-dto';
 import {NavigationService} from '../../../base/services/navigation.service';
-import {ModalService, VtMessage} from '@vt/core';
+import {ModalService, DvMessage} from '@dvladir/ng-ui-kit';
 import {DeletePartner} from '../../store/parnter.actions';
 
 const VIEW = 'BUTTONS';
@@ -24,7 +24,7 @@ export class PartnerListActionComponent {
 
   @Input() partnerHeader?: PartnerHeaderDto;
 
-  readonly actions: ReadonlyArray<{ key: string, label: VtMessage }> = ['open', 'delete'].map(key => {
+  readonly actions: ReadonlyArray<{ key: string, label: DvMessage }> = ['open', 'delete'].map(key => {
     const view = VIEW;
     const message = key;
     return {key, label: {message, view}}

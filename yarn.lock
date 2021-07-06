@@ -1185,6 +1185,13 @@
   resolved "http://localhost:8087/repository/NpmGroupRep/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz#8f03a22a04de437254e8ce8cc84ba39689288752"
   integrity sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==
 
+"@dvladir/ng-ui-kit@0.0.1":
+  version "0.0.1"
+  resolved "http://localhost:8087/repository/NpmGroupRep/@dvladir/ng-ui-kit/-/ng-ui-kit-0.0.1.tgz#11094caf30ba8383c1eca69b28772c53f79d7bc9"
+  integrity sha512-SgNXaXVZRMnxuh8mWHXmatUrtgZpOSBMdQgormcewRfuq2+J1OvdXNwkmNG5aOEbXBGCF6vwKvwIW9JpwuLUBA==
+  dependencies:
+    tslib "^2.0.0"
+
 "@fortawesome/fontawesome-free@^5.15.2":
   version "5.15.3"
   resolved "http://localhost:8087/repository/NpmGroupRep/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
@@ -1473,13 +1480,6 @@
     "@types/node" "*"
     "@types/source-list-map" "*"
     source-map "^0.6.1"
-
-"@vt/core@0.0.1":
-  version "0.0.1"
-  resolved "http://localhost:8087/repository/NpmGroupRep/@vt/core/-/core-0.0.1.tgz#e6376e5bea90a50d74570a0f6f101ce9eafbe881"
-  integrity sha512-wJv2n+dHm40l/d3aaBis1ISSfWyRjZoqhR2k/AUfGJTQdMEafGti+MyuM9tr3NUKSabXBLebKt6O2PGv3p3GPQ==
-  dependencies:
-    tslib "^2.0.0"
 
 "@webassemblyjs/ast@1.11.0":
   version "1.11.0"

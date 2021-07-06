@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {TranslatePrepareModule} from '../translate-prepare/translate-prepare.module';
-import {CoreModule} from '@vt/core';
+import {CoreModule} from '@dvladir/ng-ui-kit';
 
 
 @NgModule({

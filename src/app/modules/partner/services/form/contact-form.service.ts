@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@vt/core';
+import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
 import {CONTACT_FIELDS, ContactFormGroup} from './form-types/contact-form';
 import {ContactDto} from '../../../api/models/contact-dto';
 

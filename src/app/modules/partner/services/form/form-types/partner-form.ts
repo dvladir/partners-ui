@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
 import {AddressFormConfig, AddressFormGroup, AddressValue} from './address-form';
 import {CompanyFormConfig, CompanyFormGroup, CompanyValue} from './company-form';
 import {ContactFormConfig, ContactFormGroup, ContactValue} from './contact-form';

@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
 import {AddressDto} from '../../../../api/models/address-dto';
 
 export class AddressValue implements AddressDto {

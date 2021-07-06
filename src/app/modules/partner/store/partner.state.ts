@@ -1,5 +1,5 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
-import {PaginationData, Sort, SortField} from '@vt/core';
+import {PaginationData, Sort, SortField} from '@dvladir/ng-ui-kit';
 import {PartnerHeaderDto} from '../../api/models/partner-header-dto';
 import {PartnerService} from '../../api/services/partner.service';
 import {

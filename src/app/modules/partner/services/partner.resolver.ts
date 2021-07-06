@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {GetPartner} from '../store/parnter.actions';
 import {NavigationService} from '../../base/services/navigation.service';
-import {ToastService} from '@vt/core';
+import {ToastService} from '@dvladir/ng-ui-kit';
 
 @Injectable({
   providedIn: 'root'

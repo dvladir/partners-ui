@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@vt/core';
+import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
 import {PERSONAL_FIELDS, PersonalFormGroup} from './form-types/personal-form';
 import {PersonalDto} from '../../../api/models/personal-dto';
 

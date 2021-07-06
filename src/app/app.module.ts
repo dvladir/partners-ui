@@ -13,7 +13,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpErrorInterceptor} from './modules/base/services/http-error.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {DEFAULT_ERROR_VIEW} from '@vt/core';
+import {DEFAULT_ERROR_VIEW} from '@dvladir/ng-ui-kit';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
 import {CompanyDto} from '../../../../api/models/company-dto';
 
 export class CompanyValue implements CompanyDto {

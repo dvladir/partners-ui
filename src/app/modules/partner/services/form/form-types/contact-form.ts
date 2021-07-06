@@ -1,4 +1,4 @@
-import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@vt/core';
+import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
 import {ContactDto} from '../../../../api/models/contact-dto';
 
 export class ContactValue implements ContactDto {
