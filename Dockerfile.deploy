@@ -1,0 +1,7 @@
+FROM "rastasheep/alpine-node-chromium:14-alpine"
+
+WORKDIR /usr/src/app
+
+COPY dist/partners-ui/ .
+
+RUN yarn global add serve
