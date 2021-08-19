@@ -28,15 +28,16 @@ pipeline {
       steps {
         sh 'DOCKER_BUILDKIT=1 docker build --output type=tar,dest=partners-ui.tar --file Dockerfile.deploy .'
         sh 'gzip partners-ui.tar'
-        withCredentials([ssUserPrivateKey(
+        withCredentials([sshUserPrivateKey(
           credentialsId: 'deploy',
           keyFileVariable: 'keyfile',
-          passprhaseVariable: 'passphrase',
+          passphraseVariable: 'passphrase',
           usernameVariable: 'userName'
         )]) {
           sh 'echo ${passphrase} >> pass'
           sh 'sshpass -Ppassphrase -f ./pass scp -i ${keyfile} -P ${DEPLOY_PORT} ./partners-ui.tar.gz ${userName}@${DEPLOY_HOST}:~/partners-deploy/partners-ui.tar.gz'
           sh 'sshpass -Ppassphrase -f ./pass ssh -i ${keyfile} -p ${DEPLOY_PORT} ${userName}@${DEPLOY_HOST} cd \\~/partners-deploy \\&\\& ./scripts/recreate.sh ./partners-ui.tar.gz dvladir:partners-ui front'
+          sh 'rm ./pass'
         }
       }
     }
