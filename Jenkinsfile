@@ -15,7 +15,7 @@ pipeline {
           reuseNode true
         }
       }
-      stages {
+      steps {
         sh 'yarn'
         sh 'yarn build'
       }
