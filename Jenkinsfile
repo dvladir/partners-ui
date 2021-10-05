@@ -7,6 +7,31 @@ pipeline {
   agent any
 
   stages {
+    stage("Prepare env") {
+      parallel {
+        stage("DEV ENV") {
+          when {branch 'develop'}
+          steps {
+            script {
+              env.INSTALL_CONFIG = 'dev-npm-rc'
+            }
+          }
+        }
+        stage("MASTER ENV") {
+          when {branch 'master'}
+          steps {
+            script {
+              env.INSTALL_CONFIG = 'master-npm-rc'
+            }
+          }
+        }
+      }
+    }
+    stage("Show env") {
+      steps {
+        echo "INSTALL: '${INSTALL_CONFIG}'"
+      }
+    }
     stage('Build') {
       agent {
         docker {
@@ -16,8 +41,10 @@ pipeline {
         }
       }
       steps {
-        sh 'yarn'
-        sh 'yarn build'
+        withNPM(npmrcConfig: "${env.INSTALL_CONFIG}") {
+          sh 'yarn'
+          sh 'yarn build'
+        }
       }
     }
     stage('Deploy') {
