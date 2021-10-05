@@ -14,7 +14,7 @@ import {Select, Store} from '@ngxs/store';
 import {PartnerState} from '../../store/partner.state';
 import {ClearPartnerData, SavePartner} from '../../store/parnter.actions';
 import {ErrorInfoDto} from '../../../api/models/error-info-dto';
-import {ModalService} from '@dvladir/ng-ui-kit';
+import {ModalService, PhoneMaskItem} from '@dvladir/ng-ui-kit';
 
 @Component({
   selector: 'app-partner-editor',
@@ -41,6 +41,11 @@ export class PartnerEditorComponent implements OnInit, OnDestroy {
   hasChanged: boolean = false;
 
   readonly PHONE_MASK: string = '{+7} 000 000-00-00';
+  readonly PHONE_MASKS: PhoneMaskItem[] = [
+    {code: '+7', mask: '(000) 000-00-00'},
+    {code: '+1', mask: '000 000-00-00'},
+    {code: '+49', mask: '(0000) 000-0000'},
+  ];
 
   readonly numEmplRange: { min: number, max: number } = {min: 1, max: 9999};
 

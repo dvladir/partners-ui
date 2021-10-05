@@ -106,8 +106,8 @@
           </div>
           <div class="col">
             <label class="form-label" dvCaption="phone" view="PARTNER" sfx=":"></label>
-            <input type="text" class="form-control" [dvPhone]="PHONE_MASK" [formControlName]="CONTACT_FIELDS.phone"
-                   dvErrSrc #errPhone="DvErrSrc"/>
+            <dv-phone-input [items]="PHONE_MASKS" [formControlName]="CONTACT_FIELDS.phone" dvErrSrc #errPhone="DvErrSrc">
+            </dv-phone-input>
             <dv-error-description [errorSrc]="errPhone"></dv-error-description>
           </div>
         </div>
