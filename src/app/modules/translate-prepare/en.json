@@ -1,0 +1,77 @@
+{
+  "CAPTIONS": {
+    "partners": "Partners",
+    "search": "Search",
+    "no_data": "There is no data for current search request"
+  },
+  "PARTNER": {
+    "displayName": "Name",
+    "partnerType": "Type",
+    "email": "E-mail",
+    "city": "City",
+    "address": "Address",
+    "companyName": "Company Name",
+    "foundationYear": "Year of foundation",
+    "numEmployees": "Number of employees",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "middleName": "Middle name",
+    "birthDate": "Birth date",
+    "gender": "Gender",
+    "houseNumber": "House number",
+    "idx": "Zip",
+    "street": "City",
+    "phone": "Phone"
+  },
+  "GENDER": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "PARTNER_TYPE": {
+    "naturalPerson": "Natural person",
+    "legalEntity": "Legal entity"
+  },
+  "BUTTONS": {
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel",
+    "open": "Open",
+    "delete": "Delete"
+  },
+  "MESSAGES": {
+    "partner_unsaved_changes": "You have unsaved partner's data. Do you want to continue?",
+    "partner_invalid_fields": "Please, correct fields with invalid data",
+    "partner_remove": "Are you sure to delete this partner?"
+  },
+  "YES_NO_CANCEL": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "ok": "Ok"
+  },
+  "SERVER_ERRORS": {
+    "INTERNAL_ERROR": "Unknown error. Try to continue your request later.",
+    "INVALID_PARTNER_TYPE": "Partner type is invalid.",
+    "PARTNER_NOT_FOUND": "Partner not found",
+    "VALIDATION_ERROR": "Data is invalid"
+  },
+  "MONTHS" :{
+    "month_0": "January",
+    "month_1": "February",
+    "month_2": "March",
+    "month_3": "April",
+    "month_4": "May",
+    "month_5": "June",
+    "month_6": "July",
+    "month_7": "August",
+    "month_8": "September",
+    "month_9": "October",
+    "month_10": "November",
+    "month_11": "December"
+  },
+  "VALIDATION_ERRORS": {
+    "FIELD_REQUIRED": "The field is required",
+    "INVALID_VALUE": "Incorrect value",
+    "INVALID_EMAIL": "Incorrect email"
+  }
+}

@@ -30,8 +30,8 @@ import {DEFAULT_VIEW} from '@dvladir/ng-ui-kit';
       useFactory: (translateService: TranslateService) => {
         return () => {
           return new Promise((resolve => {
-            translateService.setDefaultLang('ru');
-            translateService.use('ru');
+            translateService.setDefaultLang('en');
+            translateService.use('en');
             resolve(undefined);
           }))
         }

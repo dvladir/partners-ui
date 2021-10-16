@@ -4,3 +4,9 @@
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@angular/cdk/overlay-prebuilt.css";
 @import "~@dvladir/ng-ui-kit/styles/index";
+
+@include media-breakpoint-down(md) {
+  html {
+    font-size: 10px;
+  }
+}

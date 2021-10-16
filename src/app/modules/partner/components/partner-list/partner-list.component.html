@@ -12,7 +12,7 @@
   <div class="col">
     <dv-table [config]="paginationConfig" [trackBy]="trackByFn" #table>
       <ng-container cdkColumnDef="displayName">
-        <th cdk-header-cell *cdkHeaderCellDef>
+        <th cdk-header-cell *cdkHeaderCellDef dvSortable="name" class="col-name">
           <dv-caption value="displayName" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">
@@ -22,7 +22,7 @@
         </td>
       </ng-container>
       <ng-container cdkColumnDef="partnerType">
-        <th cdk-header-cell *cdkHeaderCellDef>
+        <th cdk-header-cell *cdkHeaderCellDef dvSortable="partner_type" class="col-partner-type">
           <dv-caption value="partnerType" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">
@@ -30,19 +30,19 @@
         </td>
       </ng-container>
       <ng-container cdkColumnDef="email">
-        <th cdk-header-cell *cdkHeaderCellDef>
+        <th cdk-header-cell *cdkHeaderCellDef dvSortable>
           <dv-caption value="email" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.email}}</td>
       </ng-container>
       <ng-container cdkColumnDef="city">
-        <th cdk-header-cell *cdkHeaderCellDef>
+        <th cdk-header-cell *cdkHeaderCellDef dvSortable>
           <dv-caption value="city" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.city}}</td>
       </ng-container>
       <ng-container cdkColumnDef="address">
-        <th cdk-header-cell *cdkHeaderCellDef>
+        <th cdk-header-cell *cdkHeaderCellDef dvSortable>
           <dv-caption value="address" view="PARTNER"></dv-caption>
         </th>
         <td cdk-cell *cdkCellDef="let element">{{element.address}}</td>

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnDestroy, TrackByFunction, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
-import {PaginationConfig, PaginationData, SortField, TableComponent} from '@dvladir/ng-ui-kit';
+import {PaginationConfig, PaginationData, Sort, SortField, TableComponent} from '@dvladir/ng-ui-kit';
 import {PartnerHeaderDto} from '../../../api/models/partner-header-dto';
 import {SearchPartners} from '../../store/parnter.actions';
 import {PartnerState} from '../../store/partner.state';
@@ -41,7 +41,7 @@ export class PartnerListComponent implements AfterViewInit, OnDestroy {
     getData: (pageSize: number, currentPage: number, sort: SortField): Observable<PaginationData<PartnerHeaderDto>> => {
       if (!this._isFirstInvoke) {
         const query = this.searchForm.controls.search.value;
-        this._store.dispatch(new SearchPartners(currentPage, pageSize, query));
+        this._store.dispatch(new SearchPartners(currentPage, pageSize, query, sort));
       } else {
         this._isFirstInvoke = false;
       }

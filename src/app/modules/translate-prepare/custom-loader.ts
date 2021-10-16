@@ -1,6 +1,6 @@
 import {TranslateLoader} from '@ngx-translate/core';
 import {Observable, of} from 'rxjs';
-// import * as en from './en.json';
+import * as en from './en.json';
 import * as ru from './ru.json';
 
 export class CustomLoader implements TranslateLoader {
@@ -9,8 +9,11 @@ export class CustomLoader implements TranslateLoader {
     let d: any;
 
     switch (lang) {
-      default:
+      case 'ru':
         d = ru;
+        break;
+      default:
+        d = en;
         break;
     }
 

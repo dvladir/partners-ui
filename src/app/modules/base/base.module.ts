@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {TranslatePrepareModule} from '../translate-prepare/translate-prepare.module';
 import {CoreModule} from '@dvladir/ng-ui-kit';
+import { TnsSwitchComponent } from './components/tns-switch/tns-switch.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import {CoreModule} from '@dvladir/ng-ui-kit';
     TranslatePrepareModule,
     CoreModule
   ],
-  declarations: [SimpleOutletComponent],
+  declarations: [SimpleOutletComponent, TnsSwitchComponent],
   exports: [
     CommonModule,
     SimpleOutletComponent,
@@ -27,7 +28,8 @@ import {CoreModule} from '@dvladir/ng-ui-kit';
     ReactiveFormsModule,
     HttpClientModule,
     TranslatePrepareModule,
-    CoreModule
+    CoreModule,
+    TnsSwitchComponent
   ]
 })
 export class BaseModule {

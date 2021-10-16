@@ -1,4 +1,5 @@
 import {PartnerDto} from '../../api/models/partner-dto';
+import {SortField} from '@dvladir/ng-ui-kit';
 
 export class SearchPartners {
   static readonly type = '[Partners] search';
@@ -6,6 +7,7 @@ export class SearchPartners {
     public pageNum: number = 0,
     public pageSize: number = 10,
     public query: string = '',
+    public sort?: SortField
 ) {
   }
 }

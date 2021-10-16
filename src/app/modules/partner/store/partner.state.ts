@@ -3,7 +3,8 @@ import {PaginationData, Sort, SortField} from '@dvladir/ng-ui-kit';
 import {PartnerHeaderDto} from '../../api/models/partner-header-dto';
 import {PartnerService} from '../../api/services/partner.service';
 import {
-  ClearPartnerData, DeletePartner,
+  ClearPartnerData,
+  DeletePartner,
   GetPartner,
   InitialLoadPartners,
   RefreshSearchPartners,
@@ -16,8 +17,6 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {PartnerDto} from '../../api/models/partner-dto';
 import {ErrorInfoDto} from '../../api/models/error-info-dto';
-import {ErrorInfo} from '../../base/share/error-info';
-import {ErrorMessageCode} from '../../base/share/error-message-code.enum';
 import {ValidationError} from '../../base/share/validation-error';
 
 export interface PartnerStateModel {
@@ -29,9 +28,9 @@ export interface PartnerStateModel {
   partnerValidationErrors?: ErrorInfoDto;
 }
 
-const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto): PaginationData<T> => {
+const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto, sortData?: SortField): PaginationData<T> => {
   const elements: T[] = source.data || [] as T[];
-  const sort: SortField = {sort: Sort.none, field: ''};
+  const sort: SortField = sortData || {sort: Sort.none, field: ''};
   const {
     pageNum: currentPage,
     pageSize,
@@ -66,9 +65,15 @@ export class PartnerState {
   ) {
   }
 
-  private loadPartners(query: string, pageNum: number, pageSize: number): Observable<PaginationData<PartnerHeaderDto>> {
-    return this._partnersApi.partnerControllerSearch({query, pageNum, pageSize}).pipe(
-      map(r => convertPageResponse<PartnerHeaderDto>(r))
+  private loadPartners(query: string, pageNum: number, pageSize: number, sortData?: SortField): Observable<PaginationData<PartnerHeaderDto>> {
+
+    let sort: string | undefined = '';
+    if (sortData && sortData.sort !== Sort.none) {
+      sort = `${sortData.field};${sortData.sort}`;
+    }
+
+    return this._partnersApi.partnerControllerSearch({query, pageNum, pageSize, sort}).pipe(
+      map(r => convertPageResponse<PartnerHeaderDto>(r, sortData))
     );
   }
 
@@ -79,8 +84,9 @@ export class PartnerState {
     const query = state.query || '';
     const pageNum = state.partnerList?.currentPage || 0;
     const pageSize = state.partnerList?.pageSize || 10;
+    const sort = state.partnerList?.sort;
 
-    const partnerList = await this.loadPartners(query, pageNum, pageSize).toPromise();
+    const partnerList = await this.loadPartners(query, pageNum, pageSize, sort).toPromise();
 
     ctx.setState({
       ...state,
@@ -94,9 +100,9 @@ export class PartnerState {
   @Action(SearchPartners)
   async searchPartners(ctx: StateContext<PartnerStateModel>, action: SearchPartners): Promise<unknown> {
     const state = ctx.getState();
-    const {pageNum, pageSize, query} = action;
+    const {pageNum, pageSize, query, sort} = action;
 
-    const partnerList = await this.loadPartners(query, pageNum, pageSize).toPromise();
+    const partnerList = await this.loadPartners(query, pageNum, pageSize, sort).toPromise();
 
     ctx.setState({
       ...state,
@@ -113,7 +119,8 @@ export class PartnerState {
     const query = state.query;
     const pageNum = state.partnerList.currentPage;
     const pageSize = state.partnerList.pageSize;
-    return ctx.dispatch(new SearchPartners(pageNum, pageSize, query));
+    const sort = state.partnerList.sort;
+    return ctx.dispatch(new SearchPartners(pageNum, pageSize, query, sort));
   }
 
   @Action(GetPartner)

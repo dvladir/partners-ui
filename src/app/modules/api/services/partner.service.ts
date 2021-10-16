@@ -40,6 +40,7 @@ export class PartnerService extends BaseService {
     query?: string;
     pageNum?: number;
     pageSize?: number;
+    sort?: string;
   }): Observable<StrictHttpResponse<{ 'data'?: Array<PartnerHeaderDto> } & PageDataDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PartnerService.PartnerControllerSearchPath, 'get');
@@ -47,6 +48,7 @@ export class PartnerService extends BaseService {
       rb.query('query', params.query, {});
       rb.query('pageNum', params.pageNum, {});
       rb.query('pageSize', params.pageSize, {});
+      rb.query('sort', params.sort, {});
     }
 
     return this.http.request(rb.build({
@@ -70,6 +72,7 @@ export class PartnerService extends BaseService {
     query?: string;
     pageNum?: number;
     pageSize?: number;
+    sort?: string;
   }): Observable<{ 'data'?: Array<PartnerHeaderDto> } & PageDataDto> {
 
     return this.partnerControllerSearch$Response(params).pipe(
