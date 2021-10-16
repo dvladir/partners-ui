@@ -11,6 +11,7 @@ import {PartnerModule} from './modules/partner/partner.module';
 import {BaseModule} from './modules/base/base.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpErrorInterceptor} from './modules/base/services/http-error.interceptor';
+import {NoCacheInterceptor} from './modules/base/services/no-cache.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {DEFAULT_ERROR_VIEW} from '@dvladir/ng-ui-kit';
@@ -36,6 +37,10 @@ import {DEFAULT_ERROR_VIEW} from '@dvladir/ng-ui-kit';
     PartnerModule
   ],
   providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: NoCacheInterceptor,
+    multi: true
+  }, {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
