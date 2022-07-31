@@ -1,1 +1,1 @@
-export { PartnerService } from './services/partner.service';
+export { PartnerControllerService } from './services/partner-controller.service';

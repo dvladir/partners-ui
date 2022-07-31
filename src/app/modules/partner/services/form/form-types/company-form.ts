@@ -1,7 +1,7 @@
 import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
-import {CompanyDto} from '../../../../api/models/company-dto';
+import {CompanyInfoDto} from '../../../../api/models/company-info-dto';
 
-export class CompanyValue implements CompanyDto {
+export class CompanyValue implements CompanyInfoDto {
   foundationYear: number = 0;
   name: string = '';
   numEmployees: number = 0;

@@ -1,7 +1,7 @@
 import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
-import {ContactDto} from '../../../../api/models/contact-dto';
+import {ContactInfoDto} from '../../../../api/models/contact-info-dto';
 
-export class ContactValue implements ContactDto {
+export class ContactValue implements ContactInfoDto {
   email: string = '';
   phone: string = '';
 }

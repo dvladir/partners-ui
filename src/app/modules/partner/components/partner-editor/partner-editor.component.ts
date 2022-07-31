@@ -9,12 +9,12 @@ import {CONTACT_FIELDS} from '../../services/form/form-types/contact-form';
 import {PartnerType} from '../../services/form/form-types/partner-type.enum';
 import {Observable, Subject} from 'rxjs';
 import {NavigationService} from '../../../base/services/navigation.service';
-import {PartnerDto} from '../../../api/models/partner-dto';
+import {PartnerInfoDto} from '../../../api/models/partner-info-dto';
 import {Select, Store} from '@ngxs/store';
 import {PartnerState} from '../../store/partner.state';
 import {ClearPartnerData, SavePartner} from '../../store/parnter.actions';
-import {ErrorInfoDto} from '../../../api/models/error-info-dto';
 import {ModalService, PhoneMaskItem} from '@dvladir/ng-ui-kit';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Component({
   selector: 'app-partner-editor',
@@ -31,8 +31,8 @@ export class PartnerEditorComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  @Select(PartnerState.editablePartner) partnerDto$?: Observable<PartnerDto>;
-  @Select(PartnerState.partnerValidationErrors) validationErrors?: Observable<ErrorInfoDto>;
+  @Select(PartnerState.editablePartner) partnerDto$?: Observable<PartnerInfoDto>;
+  @Select(PartnerState.partnerValidationErrors) validationErrors?: Observable<ValidationErrorInfoDto>;
 
   private _terminator$: Subject<unknown> = new Subject<unknown>();
 
@@ -101,7 +101,7 @@ export class PartnerEditorComponent implements OnInit, OnDestroy {
       this.showIncorrectFieldsMessage();
       return undefined;
     }
-    const dto: PartnerDto = this._partnerForm.extractDto(this.form!);
+    const dto: PartnerInfoDto = this._partnerForm.extractDto(this.form!);
     const st = await this._store.dispatch(new SavePartner(dto)).toPromise();
     if (st.partners.savePartnerSucceed) {
       this.hasChanged = false;

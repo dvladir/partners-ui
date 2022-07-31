@@ -1,8 +1,8 @@
 import {generateFieldNames, TypedFormConfig, TypedFormGroup} from '@dvladir/ng-ui-kit';
-import {PersonalDto} from '../../../../api/models/personal-dto';
+import {PersonalInfoDto} from '../../../../api/models/personal-info-dto';
 import {Gender} from './gender.enum';
 
-export class PersonalValue implements PersonalDto {
+export class PersonalValue implements PersonalInfoDto {
   birthDate: string = '';
   firstName: string = '';
   gender: Gender = Gender.male;

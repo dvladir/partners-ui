@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
+import {BaseFormService} from '@dvladir/ng-ui-kit';
 import {PERSONAL_FIELDS, PersonalFormGroup} from './form-types/personal-form';
-import {PersonalDto} from '../../../api/models/personal-dto';
+import {PersonalInfoDto} from '../../../api/models/personal-info-dto';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonalFormService extends BaseFormService<PersonalFormGroup, PersonalDto>{
+export class PersonalFormService extends BaseFormService<PersonalFormGroup, PersonalInfoDto>{
   constructor(
     private _fb: FormBuilder
   ) {
     super()
   }
 
-  createForm(value?: PersonalDto): PersonalFormGroup {
+  createForm(value?: PersonalInfoDto): PersonalFormGroup {
     const result: PersonalFormGroup = this._fb.group({
       birthDate: [value?.birthDate || ''],
       firstName: [value?.firstName || ''],
@@ -25,18 +26,18 @@ export class PersonalFormService extends BaseFormService<PersonalFormGroup, Pers
     return result;
   }
 
-  setApiErrors(form: PersonalFormGroup, errors?: ErrorInfo): void {
+  setApiErrors(form: PersonalFormGroup, errors?: ValidationErrorInfoDto): void {
     if (!errors) {
       return;
     }
     Object.keys(PERSONAL_FIELDS).forEach(key => {
-      const fieldErrors = errors?.children[key]?.errors;
-      this.setApiErrorsToControl(form.controls[key], fieldErrors);
+      const fieldErrors = errors?.children?.[key]?.errors;
+      this.setApiErrorsToControl(form.controls[key], fieldErrors!);
     })
-    this.setApiErrorsToControl(form, errors?.errors);
+    this.setApiErrorsToControl(form, errors?.errors!);
   }
 
-  extractDto(form: PersonalFormGroup): PersonalDto {
+  extractDto(form: PersonalFormGroup): PersonalInfoDto{
     return form.value;
   }
 

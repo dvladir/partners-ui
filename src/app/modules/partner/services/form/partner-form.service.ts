@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
+import {BaseFormService} from '@dvladir/ng-ui-kit';
 import {PARTNER_FIELDS, PartnerFormGroup} from './form-types/partner-form';
-import {PartnerDto} from '../../../api/models/partner-dto';
-import {ErrorInfoDto} from '../../../api/models/error-info-dto';
+import {PartnerInfoDto} from '../../../api/models/partner-info-dto';
 import {AddressFormService} from './address-form.service';
 import {ContactFormService} from './contact-form.service';
 import {PersonalFormService} from './personal-form.service';
 import {CompanyFormService} from './company-form.service';
 import {PartnerType} from './form-types/partner-type.enum';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartnerFormService extends BaseFormService<PartnerFormGroup, PartnerDto>{
+export class PartnerFormService extends BaseFormService<PartnerFormGroup, PartnerInfoDto>{
   constructor(
     private _fb: FormBuilder,
     private _addressForm: AddressFormService,
@@ -24,7 +24,7 @@ export class PartnerFormService extends BaseFormService<PartnerFormGroup, Partne
     super();
   }
 
-  createForm(value?: PartnerDto): PartnerFormGroup {
+  createForm(value?: PartnerInfoDto): PartnerFormGroup {
     const result: PartnerFormGroup = this._fb.group({
       id: [value?.id || ''],
       partnerType: [value?.partnerType || undefined],
@@ -36,36 +36,36 @@ export class PartnerFormService extends BaseFormService<PartnerFormGroup, Partne
     return result;
   }
 
-  setApiErrors(form: PartnerFormGroup, errors?: ErrorInfo): void {
+  setApiErrors(form: PartnerFormGroup, errors?: ValidationErrorInfoDto): void {
     if (!errors) {
       return;
     }
-    this.setApiErrorsToControl(form.controls.partnerType, errors?.children?.[PARTNER_FIELDS.partnerType!]?.errors);
+    this.setApiErrorsToControl(form.controls.partnerType, errors?.children?.[PARTNER_FIELDS.partnerType!]?.errors!);
     this._addressForm.setApiErrors(form.controls.addressInfo, errors?.children?.[PARTNER_FIELDS.addressInfo!]);
     this._contactForm.setApiErrors(form.controls.contactInfo, errors?.children?.[PARTNER_FIELDS.contactInfo!]);
     this._personalForm.setApiErrors(form.controls.personalInfo, errors?.children?.[PARTNER_FIELDS.personalInfo!]);
     this._companyForm.setApiErrors(form.controls.companyInfo, errors?.children?.[PARTNER_FIELDS.companyInfo!]);
-    this.setApiErrorsToControl(form, errors?.errors);
+    this.setApiErrorsToControl(form, errors?.errors!);
   }
 
-  extractDto(form: PartnerFormGroup): PartnerDto {
+  extractDto(form: PartnerFormGroup): PartnerInfoDto {
     const {id, partnerType} = form.value;
     const addressInfo = this._addressForm.extractDto(form.controls.addressInfo);
     const contactInfo = this._contactForm.extractDto(form.controls.contactInfo);
     const personalInfo = this._personalForm.extractDto(form.controls.personalInfo);
     const companyInfo = this._companyForm.extractDto(form.controls.companyInfo);
 
-    const commonData: Pick<PartnerDto, 'addressInfo' | 'contactInfo' | 'id' | 'partnerType'> = {
+    const commonData: Pick<PartnerInfoDto, 'addressInfo' | 'contactInfo' | 'id' | 'partnerType'> = {
       id, partnerType, addressInfo, contactInfo
     };
 
-    const result: PartnerDto = partnerType === PartnerType.legalEntity ? {
+    const result: PartnerInfoDto = partnerType === PartnerType.legalEntity ? {
       ...commonData,
       companyInfo
-    } as PartnerDto : {
+    } as PartnerInfoDto : {
       ...commonData,
       personalInfo
-    } as PartnerDto;
+    } as PartnerInfoDto;
 
     return result;
   }

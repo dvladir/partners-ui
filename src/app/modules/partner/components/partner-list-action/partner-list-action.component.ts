@@ -45,7 +45,7 @@ export class PartnerListActionComponent {
 
   open(): void {
     if (this.partnerHeader) {
-      this._nav.editPartner(this.partnerHeader.id);
+      this._nav.editPartner(this.partnerHeader.id!);
     }
   }
 
@@ -57,7 +57,7 @@ export class PartnerListActionComponent {
     const view = 'MESSAGES';
     const isOk = await this._modal.openConfirm({message, view});
     if (isOk) {
-      this._store.dispatch(new DeletePartner(this.partnerHeader.id));
+      this._store.dispatch(new DeletePartner(this.partnerHeader.id!));
     }
     return undefined;
 

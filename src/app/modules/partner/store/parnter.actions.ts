@@ -1,4 +1,4 @@
-import {PartnerDto} from '../../api/models/partner-dto';
+import {PartnerInfoDto} from '../../api/models/partner-info-dto';
 import {SortField} from '@dvladir/ng-ui-kit';
 
 export class SearchPartners {
@@ -35,7 +35,7 @@ export class ClearPartnerData {
 export class SavePartner {
   static readonly type = '[Partners] save partner';
   constructor(
-    public partner: PartnerDto
+    public partner: PartnerInfoDto
   ) {
   }
 }

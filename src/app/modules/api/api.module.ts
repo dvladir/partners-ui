@@ -4,7 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { PartnerService } from './services/partner.service';
+import { PartnerControllerService } from './services/partner-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -14,7 +14,7 @@ import { PartnerService } from './services/partner.service';
   exports: [],
   declarations: [],
   providers: [
-    PartnerService,
+    PartnerControllerService,
     ApiConfiguration
   ],
 })

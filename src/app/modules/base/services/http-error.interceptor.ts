@@ -1,12 +1,12 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, ObservableInput, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ErrorMessageCode} from '../share/error-message-code.enum';
 import {ToastService} from '@dvladir/ng-ui-kit';
-import {ErrorInfo} from '../share/error-info';
 import {ValidationError} from '../share/validation-error';
-import {ErrorInfoDto} from '../../api/models/error-info-dto';
+import {ErrorResponseDto} from '../../api/models/error-response-dto';
+import {ValidationErrorContainerDto} from "../../api/models/validation-error-container-dto";
 
 const PROCEED_CODES: ReadonlyArray<ErrorMessageCode> = [
   ErrorMessageCode.INTERNAL_ERROR,
@@ -25,10 +25,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // @ts-ignore
     return next.handle(req).pipe(
       catchError(err => {
 
-        let errorInfo: ErrorInfo | undefined = undefined;
+        let errorInfo: ErrorResponseDto | undefined = undefined;
         if (typeof err.error === 'string') {
           try {
             errorInfo = JSON.parse(err.error);
@@ -36,16 +37,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             throw err;
           }
         } else {
-          errorInfo = err.error as ErrorInfo;
+          errorInfo = err.error as ErrorResponseDto;
         }
 
-        const code = errorInfo?.code;
+        const code = errorInfo?.code as ErrorMessageCode;
         if (PROCEED_CODES.includes(code!)) {
           this._toasts.errorMessage(code!, VIEW);
         }
 
         if (code === ErrorMessageCode.VALIDATION_ERROR) {
-          throw new ValidationError((errorInfo!.params as any)!.errors as ErrorInfoDto);
+          const container = (errorInfo!.params as ValidationErrorContainerDto[])[0];
+          throw new ValidationError(container.errors!);
         }
 
         throw err;

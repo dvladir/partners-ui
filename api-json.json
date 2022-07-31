@@ -1,20 +1,606 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "Partners Api Test",
-    "description": "Api for experiments",
-    "version": "0.1",
-    "contact": {}
+    "title": "OpenAPI definition",
+    "version": "v0"
   },
-  "tags": [],
-  "servers": [],
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/partner/{partnerId}": {
+      "get": {
+        "tags": [
+          "partner-controller"
+        ],
+        "description": "Get partner by id",
+        "operationId": "getPartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partner info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerInfoDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partner not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "PARTNER_NOT_FOUND"
+                    },
+                    "params": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IdentifyDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "partner-controller"
+        ],
+        "description": "Update partner",
+        "operationId": "updatePartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerInfoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Error Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partner not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "PARTNER_NOT_FOUND"
+                    },
+                    "params": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IdentifyDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "VALIDATION_ERROR"
+                    },
+                    "params": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ValidationErrorContainerDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "partner-controller"
+        ],
+        "description": "Remove partner",
+        "operationId": "removePartner",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Error Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partner not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "PARTNER_NOT_FOUND"
+                    },
+                    "params": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IdentifyDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/partner": {
+      "post": {
+        "tags": [
+          "partner-controller"
+        ],
+        "description": "Create partner",
+        "operationId": "createPartner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerInfoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Error Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "VALIDATION_ERROR"
+                    },
+                    "params": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ValidationErrorContainerDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Created partner ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentifyDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/partner/search": {
+      "get": {
+        "tags": [
+          "partner-controller"
+        ],
+        "summary": "Search partners",
+        "operationId": "search",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Error Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Search result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageDataDtoPartnerHeaderDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
+      "AddressDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "idx": {
+            "type": "string"
+          }
+        }
+      },
+      "CompanyInfoDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "foundationYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numEmployees": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ContactInfoDto": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "PartnerInfoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "addressInfo": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfoDto"
+          },
+          "partnerType": {
+            "type": "string"
+          },
+          "personalInfo": {
+            "$ref": "#/components/schemas/PersonalInfoDto"
+          },
+          "companyInfo": {
+            "$ref": "#/components/schemas/CompanyInfoDto"
+          }
+        }
+      },
+      "PersonalInfoDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "IdentifyDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ValidationErrorContainerDto": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "$ref": "#/components/schemas/ValidationErrorInfoDto"
+          }
+        }
+      },
+      "ValidationErrorInfoDto": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "children": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ValidationErrorInfoDto"
+            }
+          }
+        }
+      },
+      "PageDataDtoPartnerHeaderDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerHeaderDto"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pagesCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "PartnerHeaderDto": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "displayName": {
             "type": "string"
@@ -31,622 +617,7 @@
           "email": {
             "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "displayName",
-          "partnerType",
-          "city",
-          "address",
-          "email"
-        ]
-      },
-      "PageDataDto": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "total": {
-            "type": "number"
-          },
-          "pageSize": {
-            "type": "number"
-          },
-          "pageNum": {
-            "type": "number"
-          },
-          "pagesCount": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "data",
-          "total",
-          "pageSize",
-          "pageNum",
-          "pagesCount"
-        ]
-      },
-      "ErrorInfoDto": {
-        "type": "object",
-        "properties": {
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "children": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/ErrorInfoDto"
-            },
-            "example": {
-              "children": {
-                "firstName": {
-                  "errors": [
-                    "required"
-                  ]
-                },
-                "lastName": {
-                  "errors": [
-                    "required"
-                  ]
-                },
-                "address": {
-                  "children": {
-                    "city": {
-                      "errors": [
-                        "required"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "required": [
-          "errors",
-          "children"
-        ]
-      },
-      "AddressDto": {
-        "type": "object",
-        "properties": {
-          "city": {
-            "type": "string"
-          },
-          "street": {
-            "type": "string"
-          },
-          "houseNumber": {
-            "type": "string"
-          },
-          "idx": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "city",
-          "street",
-          "houseNumber",
-          "idx"
-        ]
-      },
-      "ContactDto": {
-        "type": "object",
-        "properties": {
-          "phone": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "phone",
-          "email"
-        ]
-      },
-      "PersonalDto": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "middleName": {
-            "type": "string"
-          },
-          "birthDate": {
-            "type": "string"
-          },
-          "gender": {
-            "type": "string",
-            "enum": [
-              "male",
-              "female"
-            ]
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName",
-          "middleName",
-          "birthDate",
-          "gender"
-        ]
-      },
-      "CompanyDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "foundationYear": {
-            "type": "number"
-          },
-          "numEmployees": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "foundationYear",
-          "numEmployees"
-        ]
-      },
-      "PartnerDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "addressInfo": {
-            "$ref": "#/components/schemas/AddressDto"
-          },
-          "contactInfo": {
-            "$ref": "#/components/schemas/ContactDto"
-          },
-          "partnerType": {
-            "type": "string",
-            "enum": [
-              "naturalPerson",
-              "legalEntity"
-            ]
-          },
-          "personalInfo": {
-            "$ref": "#/components/schemas/PersonalDto"
-          },
-          "companyInfo": {
-            "$ref": "#/components/schemas/CompanyDto"
-          }
-        },
-        "required": [
-          "id",
-          "addressInfo",
-          "contactInfo",
-          "partnerType",
-          "personalInfo",
-          "companyInfo"
-        ]
-      },
-      "IdentifyDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id"
-        ]
-      }
-    }
-  },
-  "paths": {
-    "/partner/search": {
-      "get": {
-        "operationId": "PartnerController_search",
-        "parameters": [
-          {
-            "name": "query",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "pageNum",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/PartnerHeaderDto"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/PageDataDto"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "INTERNAL_ERROR"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "partner"
-        ]
-      }
-    },
-    "/partner/{partnerId}": {
-      "get": {
-        "operationId": "PartnerController_getPartner",
-        "parameters": [
-          {
-            "name": "partnerId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PartnerDto"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "PARTNER_NOT_FOUND"
-                          ]
-                        },
-                        "params": {
-                          "$ref": "#/components/schemas/IdentifyDto"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "INTERNAL_ERROR"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "partner"
-        ]
-      },
-      "put": {
-        "operationId": "PartnerController_updatePartner",
-        "parameters": [
-          {
-            "name": "partnerId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PartnerDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "VALIDATION_ERROR"
-                          ]
-                        },
-                        "params": {
-                          "$ref": "#/components/schemas/ErrorInfoDto"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "PARTNER_NOT_FOUND"
-                          ]
-                        },
-                        "params": {
-                          "$ref": "#/components/schemas/IdentifyDto"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "INTERNAL_ERROR"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "partner"
-        ]
-      },
-      "delete": {
-        "operationId": "PartnerController_removePartner",
-        "parameters": [
-          {
-            "name": "partnerId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "PARTNER_NOT_FOUND"
-                          ]
-                        },
-                        "params": {
-                          "$ref": "#/components/schemas/IdentifyDto"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "INTERNAL_ERROR"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "partner"
-        ]
-      }
-    },
-    "/partner": {
-      "post": {
-        "operationId": "PartnerController_addPartner",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PartnerDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentifyDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "VALIDATION_ERROR"
-                          ]
-                        },
-                        "params": {
-                          "$ref": "#/components/schemas/ErrorInfoDto"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "enum": [
-                            "INTERNAL_ERROR"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "partner"
-        ]
+        }
       }
     }
   }

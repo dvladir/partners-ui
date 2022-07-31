@@ -1,7 +1,7 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {PaginationData, Sort, SortField} from '@dvladir/ng-ui-kit';
 import {PartnerHeaderDto} from '../../api/models/partner-header-dto';
-import {PartnerService} from '../../api/services/partner.service';
+import {PartnerControllerService} from '../../api/services/partner-controller.service';
 import {
   ClearPartnerData,
   DeletePartner,
@@ -12,23 +12,23 @@ import {
   SearchPartners
 } from './parnter.actions';
 import {catchError, map} from 'rxjs/operators';
-import {PageDataDto} from '../../api/models/page-data-dto';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {PartnerDto} from '../../api/models/partner-dto';
-import {ErrorInfoDto} from '../../api/models/error-info-dto';
+import {PartnerInfoDto} from '../../api/models/partner-info-dto';
+import {ValidationErrorInfoDto} from '../../api/models/validation-error-info-dto';
 import {ValidationError} from '../../base/share/validation-error';
+import {PageDataDtoPartnerHeaderDto} from "../../api/models/page-data-dto-partner-header-dto";
 
 export interface PartnerStateModel {
   partnerList: PaginationData<PartnerHeaderDto>;
   query: string;
-  editablePartner?: PartnerDto
+  editablePartner?: PartnerInfoDto;
   getPartnerSucceed?: boolean;
   savePartnerSucceed?: boolean;
-  partnerValidationErrors?: ErrorInfoDto;
+  partnerValidationErrors?: ValidationErrorInfoDto;
 }
 
-const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto, sortData?: SortField): PaginationData<T> => {
+const convertPageResponse = <T>(source: { data?: T[] } & PageDataDtoPartnerHeaderDto, sortData?: SortField): PaginationData<T> => {
   const elements: T[] = source.data || [] as T[];
   const sort: SortField = sortData || {sort: Sort.none, field: ''};
   const {
@@ -37,7 +37,13 @@ const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto, sortData?:
     pagesCount: totalPages,
     total: totalElements
   } = source;
-  return {elements, sort, currentPage, pageSize, totalPages, totalElements};
+
+  const result = {elements, sort, currentPage, pageSize, totalPages, totalElements} as PaginationData<T>;
+
+  console.log('SOURCE', source);
+  console.log('RESULT', result);
+
+  return result;
 }
 
 @State<PartnerStateModel>({
@@ -61,7 +67,7 @@ const convertPageResponse = <T>(source: { data?: T[] } & PageDataDto, sortData?:
 export class PartnerState {
 
   constructor(
-    private _partnersApi: PartnerService
+    private _partnersApi: PartnerControllerService
   ) {
   }
 
@@ -72,7 +78,7 @@ export class PartnerState {
       sort = `${sortData.field};${sortData.sort}`;
     }
 
-    return this._partnersApi.partnerControllerSearch({query, pageNum, pageSize, sort}).pipe(
+    return this._partnersApi.search({query, pageNum, pageSize, sort}).pipe(
       map(r => convertPageResponse<PartnerHeaderDto>(r, sortData))
     );
   }
@@ -128,7 +134,7 @@ export class PartnerState {
     const state = ctx.getState();
     const {partnerId} = action;
     let getPartnerSucceed = true;
-    let editablePartner: PartnerDto | undefined = undefined;
+    let editablePartner: PartnerInfoDto | undefined = undefined;
 
     if (!partnerId) {
       ctx.setState({
@@ -141,7 +147,7 @@ export class PartnerState {
     }
 
     editablePartner = await this._partnersApi
-      .partnerControllerGetPartner({partnerId})
+      .getPartner({partnerId})
       .pipe(
         catchError(err => {
           console.log(err);
@@ -182,12 +188,12 @@ export class PartnerState {
 
     let response$: Observable<unknown>;
     let savePartnerSucceed: boolean = true;
-    let partnerValidationErrors: ErrorInfoDto | undefined = undefined;
+    let partnerValidationErrors: ValidationErrorInfoDto | undefined = undefined;
 
     if (!partnerId) {
-      response$ = this._partnersApi.partnerControllerAddPartner({body})
+      response$ = this._partnersApi.createPartner({body})
     } else {
-      response$ = this._partnersApi.partnerControllerUpdatePartner({partnerId, body});
+      response$ = this._partnersApi.updatePartner({partnerId, body});
     }
 
     await response$.pipe(
@@ -219,7 +225,7 @@ export class PartnerState {
   async deletePartner(ctx: StateContext<PartnerStateModel>, action: DeletePartner): Promise<unknown> {
     const {partnerId} = action;
     let isDeleteSucceed: boolean = true;
-    await this._partnersApi.partnerControllerRemovePartner({partnerId})
+    await this._partnersApi.removePartner({partnerId})
       .pipe(
         catchError(err => {
           isDeleteSucceed = false;
@@ -246,12 +252,12 @@ export class PartnerState {
   }
 
   @Selector()
-  static editablePartner(state: PartnerStateModel): PartnerDto | undefined {
+  static editablePartner(state: PartnerStateModel): PartnerInfoDto | undefined {
     return state.editablePartner;
   }
 
   @Selector()
-  static partnerValidationErrors(state: PartnerStateModel): ErrorInfoDto | undefined {
+  static partnerValidationErrors(state: PartnerStateModel): ValidationErrorInfoDto | undefined {
     return state.partnerValidationErrors;
   }
 }
