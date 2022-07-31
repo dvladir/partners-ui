@@ -17,6 +17,14 @@ pipeline {
             }
           }
         }
+        stage("DEV ENV") {
+          when {branch 'feat/*'}
+          steps {
+            script {
+              env.INSTALL_CONFIG = 'dev-npm-rc'
+            }
+          }
+        }
         stage("MASTER ENV") {
           when {branch 'master'}
           steps {
