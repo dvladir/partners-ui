@@ -17,7 +17,7 @@ pipeline {
             }
           }
         }
-        stage("DEV ENV") {
+        stage("FEATURE DEV ENV") {
           when {branch 'feat/*'}
           steps {
             script {
