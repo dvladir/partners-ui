@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
+import {BaseFormService} from '@dvladir/ng-ui-kit';
 import {AddressDto} from '../../../api/models/address-dto';
 import {ADDRESS_FIELDS, AddressFormGroup} from './form-types/address-form';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,15 @@ export class AddressFormService extends BaseFormService<AddressFormGroup, Addres
     return result;
   }
 
-  setApiErrors(form: AddressFormGroup, errors?: ErrorInfo): void {
+  setApiErrors(form: AddressFormGroup, errors?: ValidationErrorInfoDto): void {
     if (!errors) {
       return;
     }
     Object.keys(ADDRESS_FIELDS).forEach(key => {
-      const fieldErrors = errors?.children[key]?.errors;
-      this.setApiErrorsToControl(form.controls[key], fieldErrors);
+      const fieldErrors = errors?.children?.[key]?.errors;
+      this.setApiErrorsToControl(form.controls[key], fieldErrors!);
     });
-    this.setApiErrorsToControl(form, errors?.errors);
+    this.setApiErrorsToControl(form, errors?.errors!);
   }
 
   extractDto(form: AddressFormGroup): AddressDto {

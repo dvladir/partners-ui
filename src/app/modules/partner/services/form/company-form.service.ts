@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
+import {BaseFormService} from '@dvladir/ng-ui-kit';
 import {COMPANY_FIELDS, CompanyFormGroup} from './form-types/company-form';
-import {CompanyDto} from '../../../api/models/company-dto';
+import {CompanyInfoDto} from '../../../api/models/company-info-dto';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyFormService extends BaseFormService<CompanyFormGroup, CompanyDto>{
+export class CompanyFormService extends BaseFormService<CompanyFormGroup, CompanyInfoDto>{
 
   constructor(
     private _fb: FormBuilder
@@ -15,7 +16,7 @@ export class CompanyFormService extends BaseFormService<CompanyFormGroup, Compan
     super()
   }
 
-  createForm(value?: CompanyDto): CompanyFormGroup {
+  createForm(value?: CompanyInfoDto): CompanyFormGroup {
     const result: CompanyFormGroup = this._fb.group({
       foundationYear: [value?.foundationYear || 0],
       name: [value?.name || ''],
@@ -24,18 +25,18 @@ export class CompanyFormService extends BaseFormService<CompanyFormGroup, Compan
     return result;
   }
 
-  setApiErrors(form: CompanyFormGroup, errors?: ErrorInfo): void {
+  setApiErrors(form: CompanyFormGroup, errors?: ValidationErrorInfoDto): void {
     if (!errors) {
       return;
     }
     Object.keys(COMPANY_FIELDS).forEach(key => {
-      const fieldErrors = errors?.children[key]?.errors;
-      this.setApiErrorsToControl(form.controls[key], fieldErrors);
+      const fieldErrors = errors?.children?.[key]?.errors;
+      this.setApiErrorsToControl(form.controls[key], fieldErrors!);
     });
-    this.setApiErrorsToControl(form, errors?.errors);
+    this.setApiErrorsToControl(form, errors?.errors!);
   }
 
-  extractDto(form: CompanyFormGroup): CompanyDto {
+  extractDto(form: CompanyFormGroup): CompanyInfoDto {
     return form.value;
   }
 }

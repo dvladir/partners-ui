@@ -20,7 +20,7 @@
     "gender": "Gender",
     "houseNumber": "House number",
     "idx": "Zip",
-    "street": "City",
+    "street": "Street",
     "phone": "Phone"
   },
   "GENDER": {

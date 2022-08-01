@@ -1,8 +1,8 @@
-import {ErrorInfoDto} from '../../api/models/error-info-dto';
+import {ValidationErrorInfoDto} from "../../api/models/validation-error-info-dto";
 
 export class ValidationError {
   constructor(
-    public errors: ErrorInfoDto
+    public errors: ValidationErrorInfoDto
   ) {
   }
 }

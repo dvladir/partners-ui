@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {BaseFormService, ErrorInfo} from '@dvladir/ng-ui-kit';
+import {BaseFormService} from '@dvladir/ng-ui-kit';
 import {CONTACT_FIELDS, ContactFormGroup} from './form-types/contact-form';
-import {ContactDto} from '../../../api/models/contact-dto';
+import {ContactInfoDto} from '../../../api/models/contact-info-dto';
+import {ValidationErrorInfoDto} from "../../../api/models/validation-error-info-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContactFormService extends BaseFormService<ContactFormGroup, ContactDto>{
+export class ContactFormService extends BaseFormService<ContactFormGroup, ContactInfoDto>{
 
   constructor(
     private _fb: FormBuilder
@@ -15,7 +16,7 @@ export class ContactFormService extends BaseFormService<ContactFormGroup, Contac
     super();
   }
 
-  createForm(value?: ContactDto): ContactFormGroup {
+  createForm(value?: ContactInfoDto): ContactFormGroup {
     const result: ContactFormGroup = this._fb.group({
       email: [value?.email || ''],
       phone: [value?.phone || '']
@@ -23,18 +24,18 @@ export class ContactFormService extends BaseFormService<ContactFormGroup, Contac
     return result;
   }
 
-  setApiErrors(form: ContactFormGroup, errors?: ErrorInfo): void {
+  setApiErrors(form: ContactFormGroup, errors?: ValidationErrorInfoDto): void {
     if (!errors) {
       return;
     }
     Object.keys(CONTACT_FIELDS).forEach(key => {
-      const fieldErrors = errors?.children[key]?.errors;
-      this.setApiErrorsToControl(form?.controls[key], fieldErrors);
+      const fieldErrors = errors?.children?.[key]?.errors!;
+      this.setApiErrorsToControl(form?.controls[key]!, fieldErrors);
     });
-    this.setApiErrorsToControl(form, errors?.errors);
+    this.setApiErrorsToControl(form, errors?.errors!);
   }
 
-  extractDto(form: ContactFormGroup): ContactDto {
+  extractDto(form: ContactFormGroup): ContactInfoDto{
     return form.value;
   }
 }
